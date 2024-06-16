@@ -9,7 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import {
   updateAnimeFromList,
-  updateAnimeProgress,
+  updateAnimeProgress
 } from '../../../modules/anilist/anilistApi';
 import { getUniversalEpisodeUrl } from '../../../modules/providers/api';
 import { getAvailableEpisodes } from '../../../modules/utils';
@@ -22,8 +22,8 @@ import { useStorageContext } from '../../contexts/storage';
 
 const style = getComputedStyle(document.body);
 const videoPlayerRoot = document.getElementById('video-player-root');
-var timer: any;
-var pauseInfoTimer: any;
+let timer: any;
+let pauseInfoTimer: any;
 
 interface VideoPlayerProps {
   video: IVideo | null;
@@ -49,7 +49,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   loading,
   onLocalProgressChange,
   onChangeLoading,
-  onClose,
+  onClose
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -87,7 +87,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   // keydown handlers
 
   const handleVideoPlayerKeydown = async (
-    event: KeyboardEvent | React.KeyboardEvent<HTMLVideoElement>,
+    event: KeyboardEvent | React.KeyboardEvent<HTMLVideoElement>
   ) => {
     if (event.keyCode === 229 || !videoRef?.current) return;
 
@@ -212,10 +212,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
         episodesInfo
           ? episodesInfo[animeEpisodeNumber].title?.en ??
               `Episode ${animeEpisodeNumber}`
-          : `Episode ${animeEpisodeNumber}`,
+          : `Episode ${animeEpisodeNumber}`
       );
       setEpisodeDescription(
-        episodesInfo ? episodesInfo[animeEpisodeNumber].summary ?? '' : '',
+        episodesInfo ? episodesInfo[animeEpisodeNumber].summary ?? '' : ''
       );
 
       setShowNextEpisodeButton(canNextEpisode(animeEpisodeNumber));
@@ -226,7 +226,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const playHlsVideo = (url: string) => {
     try {
       if (Hls.isSupported() && videoRef.current) {
-        var hls = new Hls();
+        const hls = new Hls();
         hls.loadSource(url);
         hls.attachMedia(videoRef.current);
         hls.on(Hls.Events.MANIFEST_PARSED, () => {
@@ -319,7 +319,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
               await updateAnimeProgress(
                 accessToken,
                 listAnimeData.media.id!,
-                episodeNumber,
+                episodeNumber
               );
               break;
             }
@@ -330,7 +330,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 listAnimeData.media.id,
                 'REWATCHING',
                 undefined,
-                episodeNumber,
+                episodeNumber
               );
             }
             default: {
@@ -339,7 +339,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 listAnimeData.media.id,
                 'CURRENT',
                 undefined,
-                episodeNumber,
+                episodeNumber
               );
             }
           }
@@ -410,25 +410,24 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     if (document.fullscreenElement) {
       setFullscreen(false);
       document.exitFullscreen();
-    } else {
-      if (document.documentElement.requestFullscreen) {
-        setFullscreen(true);
-        document.documentElement.requestFullscreen();
-      }
+    } else if (document.documentElement.requestFullscreen) {
+      setFullscreen(true);
+      document.documentElement.requestFullscreen();
     }
   };
 
   const changeEpisode = async (
     episode: number | null, // null to play the current episode
-    reloadAtPreviousTime?: boolean,
+    reloadAtPreviousTime?: boolean
   ): Promise<boolean> => {
     onChangeLoading(true);
 
     const episodeToPlay = episode || episodeNumber;
 
-    var previousTime = 0;
-    if (reloadAtPreviousTime && videoRef.current)
+    let previousTime = 0;
+    if (reloadAtPreviousTime && videoRef.current) {
       previousTime = videoRef.current?.currentTime;
+    }
 
     const setData = (value: IVideo) => {
       setVideoData(value);
@@ -436,10 +435,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       setEpisodeTitle(
         episodesInfo
           ? episodesInfo[episodeToPlay].title?.en ?? `Episode ${episode}`
-          : `Episode ${episode}`,
+          : `Episode ${episode}`
       );
       setEpisodeDescription(
-        episodesInfo ? episodesInfo[episodeToPlay].summary ?? '' : '',
+        episodesInfo ? episodesInfo[episodeToPlay].summary ?? '' : ''
       );
       playHlsVideo(value.url);
       // loadSource(value.url, value.isM3U8 ?? false);
@@ -448,8 +447,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       setProgressUpdated(false);
 
       try {
-        if (videoRef.current && reloadAtPreviousTime)
+        if (videoRef.current && reloadAtPreviousTime) {
           videoRef.current.currentTime = previousTime;
+        }
       } catch (error) {
         console.log(error);
       }
@@ -462,9 +462,9 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       toast(`Source not found.`, {
         style: {
           color: style.getPropertyValue('--font-2'),
-          backgroundColor: style.getPropertyValue('--color-3'),
+          backgroundColor: style.getPropertyValue('--color-3')
         },
-        icon: '❌',
+        icon: '❌'
       });
 
       onChangeLoading(false);
@@ -507,7 +507,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const togglePictureInPicture = async () => {
     if (document.pictureInPictureEnabled) {
       if (!document.pictureInPictureElement) {
-      await videoRef.current?.requestPictureInPicture();
+        await videoRef.current?.requestPictureInPicture();
       } else {
         await document.exitPictureInPicture();
       }
@@ -578,15 +578,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
             id="video"
             ref={videoRef}
             onKeyDown={handleKeydown}
-            onTimeUpdate={() => {void handleTimeUpdate()}}
+            onTimeUpdate={() => {
+              void handleTimeUpdate();
+            }}
             onPause={handleVideoPause}
             crossOrigin="anonymous"
-          ></video>
+          />
         </div>
         <Toaster />
       </>
     ),
-    videoPlayerRoot!,
+    videoPlayerRoot!
   );
 };
 

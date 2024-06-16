@@ -138,7 +138,7 @@
 }
 
 .anime-page ul.info li {
-  list-style-type: none
+  list-style-type: none;
 }
 
 .anime-page .description {
@@ -197,7 +197,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 100%
+  width: 100%;
 }
 
 .anime-page .episodes-section .episodes-scroller {
@@ -236,10 +236,16 @@
 
 .anime-page .episodes-section .episodes-options .right .search-bar .wrapper {
   align-items: center;
-  display: flex
+  display: flex;
 }
 
-.anime-page .episodes-section .episodes-options .right .search-bar .i-wrapper .i {
+.anime-page
+  .episodes-section
+  .episodes-options
+  .right
+  .search-bar
+  .i-wrapper
+  .i {
   color: var(--font-2);
 }
 
@@ -253,7 +259,6 @@
   color: var(--font-2);
   transition: var(--transition);
 }
-
 
 .anime-page .episodes-section .episodes-options h2 {
   font-size: 1.6rem;
@@ -299,7 +304,7 @@
   background-color: var(--color-2);
 }
 
-.anime-page .episodes-section .episodes:hover> :not(:hover) {
+.anime-page .episodes-section .episodes:hover > :not(:hover) {
   opacity: 0.5;
 }
 

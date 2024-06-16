@@ -3,7 +3,7 @@ import './styles/UserNavbar.css';
 import {
   faBug,
   faHeart,
-  faRightToBracket,
+  faRightToBracket
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ipcRenderer } from 'electron';
@@ -52,7 +52,7 @@ const UserNavbar: React.FC<UserNavbarProps> = ({ avatar }) => {
           link
         />
         {logged ? (
-          <img src={avatar}></img>
+          <img src={avatar} />
         ) : (
           <Li
             text="Login"

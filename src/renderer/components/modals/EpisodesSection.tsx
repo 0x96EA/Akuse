@@ -20,7 +20,7 @@ const EpisodesSection: React.FC<EpisodesSectionProps> = ({
   episodesInfoHasFetched,
   listAnimeData,
   loading,
-  onPlay,
+  onPlay
 }) => {
   const [activeSection, setActiveSection] = useState<number>(0);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -36,11 +36,11 @@ const EpisodesSection: React.FC<EpisodesSectionProps> = ({
       const start_index: number = page * EPISODES_PER_PAGE;
       const end_index: number = Math.min(
         start_index + EPISODES_PER_PAGE,
-        episodes,
+        episodes
       );
       const page_episodes: number[] = Array.from(
         { length: end_index - start_index },
-        (_, index) => start_index + index + 1,
+        (_, index) => start_index + index + 1
       );
       episodesArray.push(page_episodes);
     }
@@ -55,7 +55,7 @@ const EpisodesSection: React.FC<EpisodesSectionProps> = ({
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const { value } = event.target;
     setSearchValue(value);
   };
 

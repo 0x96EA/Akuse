@@ -18,7 +18,7 @@
 
 .modal-page-wrapper .auto-update-modal-content .heading span {
   color: var(--font-2);
-  font-weight: bold
+  font-weight: bold;
 }
 
 .modal-page-wrapper .auto-update-modal-content .heading span.date {

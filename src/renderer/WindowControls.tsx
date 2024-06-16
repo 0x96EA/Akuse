@@ -18,7 +18,7 @@ const Element: React.FC<{
   return (
     <div
       className={`element${warning ? ' warning' : ''}`}
-      style={{ fontSize: size ? size : '0.9rem' }}
+      style={{ fontSize: size || '0.9rem' }}
       onClick={handleElementClick}
     >
       <FontAwesomeIcon className="i" icon={icon} />
@@ -28,7 +28,7 @@ const Element: React.FC<{
 
 const WindowControls = () => {
   return (
-    <div className={'controls'}>
+    <div className="controls">
       <div className="drag" />
       <div className="elements">
         <Element icon={faMinus} ipcChannel="minimize-window" />

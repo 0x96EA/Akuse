@@ -12,7 +12,7 @@ const modalsRoot = document.getElementById('modals-root');
 
 const AuthCodeModal: React.FC<{ show: boolean; onClose: () => void }> = ({
   show,
-  onClose,
+  onClose
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +44,7 @@ const AuthCodeModal: React.FC<{ show: boolean; onClose: () => void }> = ({
           </div>
           <div className="log-in-wrapper">
             <ButtonMain
-              text={'Log-in'}
+              text="Log-in"
               tint="light"
               icon={faRightFromBracket}
               onClick={() => {
@@ -55,7 +55,7 @@ const AuthCodeModal: React.FC<{ show: boolean; onClose: () => void }> = ({
         </ModalPageSizeableContent>
       </ModalPage>
     </>,
-    modalsRoot!,
+    modalsRoot!
   );
 };
 

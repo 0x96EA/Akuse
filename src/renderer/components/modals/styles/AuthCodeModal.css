@@ -1,7 +1,7 @@
 .modal-page-wrapper .auth-code-modal-content {
   display: flex;
   flex-direction: column;
-  gap: 20px
+  gap: 20px;
 }
 
 .modal-page-wrapper .auth-code-modal-content input {

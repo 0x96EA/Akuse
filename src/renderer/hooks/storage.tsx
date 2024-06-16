@@ -4,29 +4,29 @@ import {
   LanguageOptions,
   STORE_SCHEMA,
   StorageContextType,
-  StoreKeys,
+  StoreKeys
 } from '../../modules/storeVariables';
 
 export const useStorage = (): StorageContextType => {
   const [logged, setLogged] = useState<boolean>(STORE_SCHEMA.logged.default);
   const [accessToken, setAccessToken] = useState<string>(
-    STORE_SCHEMA.access_token,
+    STORE_SCHEMA.access_token
   );
   const [updateProgress, setUpdateProgress] = useState<boolean>(
-    STORE_SCHEMA.update_progress,
+    STORE_SCHEMA.update_progress
   );
   const [watchDubbed, setWatchDubbed] = useState<boolean>(STORE_SCHEMA.dubbed);
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageOptions>(
-    STORE_SCHEMA.source_flag,
+    STORE_SCHEMA.source_flag
   );
   const [skipTime, setSkipTime] = useState<number>(
-    STORE_SCHEMA.intro_skip_time,
+    STORE_SCHEMA.intro_skip_time
   );
   const [showDuration, setShowDuration] = useState<boolean>(
-    STORE_SCHEMA.show_duration,
+    STORE_SCHEMA.show_duration
   );
   const [trailerVolumeOn, setTrailerVolumeOn] = useState<boolean>(
-    STORE_SCHEMA.trailer_volume_on,
+    STORE_SCHEMA.trailer_volume_on
   );
 
   const loadStorage = useCallback(async () => {
@@ -35,21 +35,25 @@ export const useStorage = (): StorageContextType => {
 
     if (store.access_token !== accessToken) setAccessToken(store.access_token);
 
-    if (store.update_progress !== updateProgress)
+    if (store.update_progress !== updateProgress) {
       setUpdateProgress(store.update_progress);
+    }
 
     if (store.dubbed !== watchDubbed) setWatchDubbed(store.dubbed);
 
-    if (store.source_flag !== selectedLanguage)
+    if (store.source_flag !== selectedLanguage) {
       setSelectedLanguage(store.source_flag);
+    }
 
     if (store.intro_skip_time !== skipTime) setSkipTime(store.intro_skip_time);
 
-    if (store.show_duration !== showDuration)
+    if (store.show_duration !== showDuration) {
       setShowDuration(store.show_duration);
+    }
 
-    if (store.trailer_volume_on !== trailerVolumeOn)
+    if (store.trailer_volume_on !== trailerVolumeOn) {
       setTrailerVolumeOn(store.trailer_volume_on);
+    }
 
     console.log('store - loaded');
   }, [
@@ -60,7 +64,7 @@ export const useStorage = (): StorageContextType => {
     skipTime,
     trailerVolumeOn,
     updateProgress,
-    watchDubbed,
+    watchDubbed
   ]);
 
   const updateStorage = useCallback(async (key: StoreKeys, value: any) => {
@@ -103,7 +107,7 @@ export const useStorage = (): StorageContextType => {
 
     await STORAGE.set(key, value);
     console.log(
-      `store - ${key} updated to ${value} ${newValue !== value ? `(was ${newValue})` : ''}`,
+      `store - ${key} updated to ${value} ${newValue !== value ? `(was ${newValue})` : ''}`
     );
   }, []);
 
@@ -121,6 +125,6 @@ export const useStorage = (): StorageContextType => {
     skipTime,
     showDuration,
     trailerVolumeOn,
-    updateStorage,
+    updateStorage
   };
 };

@@ -4,7 +4,7 @@ import {
   faPause,
   faPlay,
   faRotateLeft,
-  faRotateRight,
+  faRotateRight
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Dots from 'react-activity/dist/Dots';
@@ -26,7 +26,7 @@ const MidControls: React.FC<SettingsProps> = ({
   pauseVideo,
   loading,
   onClick,
-  onDblClick,
+  onDblClick
 }) => {
   const handlePlayPause = () => {
     if (videoRef.current) {
@@ -65,7 +65,7 @@ const MidControls: React.FC<SettingsProps> = ({
           </button>
           <div className="b-player play-pause-center">
             <button className="b-player play-pause" onClick={handlePlayPause}>
-              <i className="fas fa-play"></i>
+              <i className="fas fa-play" />
               <FontAwesomeIcon
                 className="i"
                 icon={playing ? faPause : faPlay}

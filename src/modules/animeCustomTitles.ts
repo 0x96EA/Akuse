@@ -24,14 +24,14 @@ export const animeCustomTitles: AnimeCustomTitles = {
     '43': { title: `Ghost in the Shell`, index: 0 },
     '235': { title: `Detective Conan Remastered`, index: 0 },
     '1482': { title: `D.Gray-man (2006)`, index: 0 },
-    '132052': { title: 'Kakkou no Iinazuke', index: 1 },
+    '132052': { title: 'Kakkou no Iinazuke', index: 1 }
   },
   IT: {
     '11061': { title: `Hunter X Hunter (2011)`, index: 1 },
     '16498': {
       title: ` Shingeki no Kyojin
     `,
-      index: 1,
-    },
-  },
+      index: 1
+    }
+  }
 };

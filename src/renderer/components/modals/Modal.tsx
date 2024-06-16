@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Property } from 'csstype';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 export const ModalPage: React.FC<{
   show: boolean;
   modalRef?: React.RefObject<HTMLDivElement>;
@@ -104,7 +105,7 @@ export const ModalPageSizeableContent: React.FC<{
   closeModal: () => void;
 }> = ({ width, height, title = '', children, closeModal }) => {
   return (
-    <div className="sizeable-content" style={{ width: width, height: height }}>
+    <div className="sizeable-content" style={{ width, height }}>
       {title && <h1>{title}</h1>}
       <button className="exit" onClick={closeModal}>
         <FontAwesomeIcon className="i" icon={faXmark} />

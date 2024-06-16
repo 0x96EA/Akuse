@@ -17,7 +17,7 @@ const Tab1: React.FC<Tab1Props> = ({
   currentListAnime,
   trendingAnime,
   mostPopularAnime,
-  nextReleasesAnime,
+  nextReleasesAnime
 }) => {
   const { logged } = useStorageContext();
 
@@ -29,7 +29,7 @@ const Tab1: React.FC<Tab1Props> = ({
             userInfo?.name ? (
               <Heading text={`Welcome back, ${userInfo?.name}`} />
             ) : (
-              <Heading text={`Welcome back`} />
+              <Heading text="Welcome back" />
             )
           ) : null}
 

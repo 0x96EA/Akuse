@@ -1,6 +1,10 @@
 import './styles/MainNavbar.css';
 
-import { faBookmark, faCompass, IconDefinition } from '@fortawesome/free-regular-svg-icons';
+import {
+  faBookmark,
+  faCompass,
+  IconDefinition
+} from '@fortawesome/free-regular-svg-icons';
 import {
   faBookmark as faBookmarkFull,
   faCompass as faCompassFull,
@@ -8,7 +12,7 @@ import {
   faLaptopCode,
   faMagnifyingGlass,
   faMagnifyingGlassPlus,
-  faRightToBracket,
+  faRightToBracket
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ipcRenderer } from 'electron';
@@ -55,7 +59,7 @@ const LiLink: React.FC<{
 };
 
 const MainNavbar: React.FC<{ avatar?: string }> = ({ avatar }) => {
-  const {logged} = useStorageContext();
+  const { logged } = useStorageContext();
 
   const [activeTab, setActiveTab] = useState(1);
   const [showUserModal, setShowUserModal] = useState<boolean>(false);
@@ -63,15 +67,15 @@ const MainNavbar: React.FC<{ avatar?: string }> = ({ avatar }) => {
   const [isPackaged, setIsPackaged] = useState<boolean>(false);
 
   useEffect(() => {
-    ipcRenderer.invoke('get-is-packaged').then((packaged) => {
+    ipcRenderer.invoke('get-is-packaged').then(packaged => {
       setIsPackaged(packaged);
     });
 
     return () => {
-      ipcRenderer.removeListener('get-is-packaged', (packaged) => {
+      ipcRenderer.removeListener('get-is-packaged', packaged => {
         setIsPackaged(packaged);
       });
-    }
+    };
   }, []);
 
   return (
@@ -119,7 +123,7 @@ const MainNavbar: React.FC<{ avatar?: string }> = ({ avatar }) => {
                 setShowUserModal(true);
               }}
             >
-              <img src={avatar}></img>
+              <img src={avatar} />
             </div>
           </>
         ) : (

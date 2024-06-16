@@ -1,21 +1,21 @@
 import './styles/AutoUpdateModal.css';
 
 import ReactDOM from 'react-dom';
-import { ModalPage, ModalPageShadow, ModalPageSizeableContent } from './Modal';
 import { useEffect, useRef, useState } from 'react';
-import { ButtonMain } from '../Buttons';
 import {
   faCloudDownload,
-  faFileDownload,
+  faFileDownload
 } from '@fortawesome/free-solid-svg-icons';
 import DOMPurify from 'dompurify';
 import { IpcRendererEvent, ipcRenderer } from 'electron';
+import { ButtonMain } from '../Buttons';
+import { ModalPage, ModalPageShadow, ModalPageSizeableContent } from './Modal';
 
 const modalsRoot = document.getElementById('modals-root');
 
 const AutoUpdateModal: React.FC<{ show: boolean; onClose: () => void }> = ({
   show,
-  onClose,
+  onClose
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -27,7 +27,7 @@ const AutoUpdateModal: React.FC<{ show: boolean; onClose: () => void }> = ({
 
   const updateAvailableInfoListener = async (
     event: IpcRendererEvent,
-    info: any,
+    info: any
   ) => {
     setVersion(info.version);
     setNotes(info.releaseNotes);
@@ -35,7 +35,7 @@ const AutoUpdateModal: React.FC<{ show: boolean; onClose: () => void }> = ({
 
   const updateDownloadingListener = async (
     event: IpcRendererEvent,
-    info: any,
+    info: any
   ) => {
     setProgressMB(((info.percent * info.total) / 100 / 1024 / 1024).toFixed(2));
     setTotalMB((info.total / 1024 / 1024).toFixed(2));
@@ -49,7 +49,7 @@ const AutoUpdateModal: React.FC<{ show: boolean; onClose: () => void }> = ({
     return () => {
       ipcRenderer.removeListener(
         'update-available-info',
-        updateAvailableInfoListener,
+        updateAvailableInfoListener
       );
       ipcRenderer.removeListener('downloading', updateDownloadingListener);
     };
@@ -77,7 +77,7 @@ const AutoUpdateModal: React.FC<{ show: boolean; onClose: () => void }> = ({
 
             <p
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(notes),
+                __html: DOMPurify.sanitize(notes)
               }}
             />
 
@@ -95,7 +95,7 @@ const AutoUpdateModal: React.FC<{ show: boolean; onClose: () => void }> = ({
 
             <div className="download-wrapper">
               <ButtonMain
-                text={'Download'}
+                text="Download"
                 tint="primary"
                 icon={faCloudDownload}
                 onClick={() => {
@@ -107,7 +107,7 @@ const AutoUpdateModal: React.FC<{ show: boolean; onClose: () => void }> = ({
         </ModalPageSizeableContent>
       </ModalPage>
     </>,
-    modalsRoot!,
+    modalsRoot!
   );
 };
 

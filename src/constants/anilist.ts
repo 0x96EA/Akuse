@@ -17,7 +17,7 @@ export const GENRES = [
   { value: 'Slice of Life', label: 'Slice of Life' },
   { value: 'Sports', label: 'Sports' },
   { value: 'Supernatural', label: 'Supernatural' },
-  { value: 'Thriller', label: 'Thriller' },
+  { value: 'Thriller', label: 'Thriller' }
 ];
 
 export const SEASONS = [
@@ -25,7 +25,7 @@ export const SEASONS = [
   { value: 'WINTER', label: 'Winter' },
   { value: 'SPRING', label: 'Spring' },
   { value: 'SUMMER', label: 'Summer' },
-  { value: 'FALL', label: 'Fall' },
+  { value: 'FALL', label: 'Fall' }
 ];
 
 export const FORMATS = [
@@ -36,7 +36,7 @@ export const FORMATS = [
   { value: 'SPECIAL', label: 'Special' },
   { value: 'OVA', label: 'OVA' },
   { value: 'ONA', label: 'ONA' },
-  { value: 'MUSIC', label: 'Music' },
+  { value: 'MUSIC', label: 'Music' }
 ];
 
 export const SORTS = [
@@ -44,5 +44,5 @@ export const SORTS = [
   { value: 'START_DATE_DESC', label: 'Release Date' },
   { value: 'SCORE_DESC', label: 'Score' },
   { value: 'POPULARITY_DESC', label: 'Popularity' },
-  { value: 'TRENDING_DESC', label: 'Trending' },
+  { value: 'TRENDING_DESC', label: 'Trending' }
 ];

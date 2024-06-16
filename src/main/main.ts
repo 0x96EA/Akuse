@@ -44,8 +44,8 @@ const installExtensions = async () => {
 
   return installer
     .default(
-      extensions.map((name) => installer[name]),
-      forceDownload,
+      extensions.map(name => installer[name]),
+      forceDownload
     )
     .catch(console.log);
 };
@@ -77,8 +77,8 @@ const createWindow = async () => {
       nodeIntegration: true,
       contextIsolation: false,
       webSecurity: false,
-      allowRunningInsecureContent: false,
-    },
+      allowRunningInsecureContent: false
+    }
   });
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
@@ -106,7 +106,7 @@ const createWindow = async () => {
   menuBuilder.buildMenu();
 
   // Open urls in the user's browser
-  mainWindow.webContents.setWindowOpenHandler((edata) => {
+  mainWindow.webContents.setWindowOpenHandler(edata => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });
@@ -169,7 +169,7 @@ app
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
     app.setAsDefaultProtocolClient('akuse', process.execPath, [
-      path.resolve(process.argv[1]),
+      path.resolve(process.argv[1])
     ]);
   }
 } else {
@@ -189,8 +189,8 @@ if (!gotTheLock) {
     }
 
     try {
-      let code = commandLine
-        .find((el) => el.includes('?code='))
+      const code = commandLine
+        .find(el => el.includes('?code='))
         ?.split('?code=')[1];
 
       await handleLogin(code);
@@ -213,12 +213,12 @@ app.on('open-url', async (event, url) => {
 
   try {
     let code = url;
-    
+
     if (code.includes('?code=')) {
       code = code.split('?code=')[1];
-      
+
       await handleLogin(code);
-      
+
       if (mainWindow) {
         mainWindow.reload();
       }
@@ -229,7 +229,7 @@ app.on('open-url', async (event, url) => {
     // the commandLine is array of strings in which last element is deep link url
     dialog.showErrorBox(
       'Login failed',
-      'An error occurred while trying to log in.',
+      'An error occurred while trying to log in.'
     );
     console.log('login failed error:', error.message);
   }
@@ -259,7 +259,7 @@ ipcMain.on('minimize-window', () => {
 });
 
 ipcMain.on('toggle-maximize-window', () =>
-  mainWindow?.isMaximized() ? mainWindow.unmaximize() : mainWindow?.maximize(),
+  mainWindow?.isMaximized() ? mainWindow.unmaximize() : mainWindow?.maximize()
 );
 
 ipcMain.on('close-window', () => {
@@ -268,7 +268,7 @@ ipcMain.on('close-window', () => {
 
 /* AUTO UPDATING */
 
-autoUpdater.on('update-available', (info) => {
+autoUpdater.on('update-available', info => {
   if (!mainWindow) return;
 
   mainWindow.webContents.send('console-log', info);
@@ -277,17 +277,17 @@ autoUpdater.on('update-available', (info) => {
   mainWindow.webContents.send('update-available-info', info);
 });
 
-autoUpdater.on('update-downloaded', (info) => {
+autoUpdater.on('update-downloaded', info => {
   console.log('update downloaded', info);
   autoUpdater.quitAndInstall();
 });
 
-autoUpdater.on('download-progress', (info) => {
+autoUpdater.on('download-progress', info => {
   if (!mainWindow) return;
   mainWindow.webContents.send('downloading', info);
 });
 
-autoUpdater.on('error', (info) => {
+autoUpdater.on('error', info => {
   if (!mainWindow) return;
   mainWindow.webContents.send('console', info);
 });
@@ -336,9 +336,9 @@ async function setActivity() {
     buttons: [
       {
         label: 'Download app',
-        url: 'https://github.com/akuse-app/akuse/releases/latest',
-      },
-    ],
+        url: 'https://github.com/akuse-app/akuse/releases/latest'
+      }
+    ]
   });
 }
 

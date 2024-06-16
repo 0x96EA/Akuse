@@ -14,7 +14,7 @@ import {
   getTrendingAnime,
   getViewerId,
   getViewerInfo,
-  getViewerList,
+  getViewerList
 } from '../modules/anilist/anilistApi';
 import { animeDataToListAnimeData } from '../modules/utils';
 import { ListAnimeData, UserInfo } from '../types/anilistAPITypes';
@@ -93,15 +93,13 @@ export default function App() {
 
         if (!animeLoaded) {
           setTrendingAnime(
-            animeDataToListAnimeData(await getTrendingAnime(accessToken, id)),
+            animeDataToListAnimeData(await getTrendingAnime(accessToken, id))
           );
           setMostPopularAnime(
-            animeDataToListAnimeData(
-              await getMostPopularAnime(accessToken, id),
-            ),
+            animeDataToListAnimeData(await getMostPopularAnime(accessToken, id))
           );
           setNextReleasesAnime(
-            animeDataToListAnimeData(await getNextReleases(accessToken, id)),
+            animeDataToListAnimeData(await getNextReleases(accessToken, id))
           );
           setAnimeLoaded(true);
         }
@@ -109,14 +107,14 @@ export default function App() {
         console.log(`Tab1 error: ${error}`);
       }
     },
-    [accessToken, animeLoaded],
+    [accessToken, animeLoaded]
   );
 
   const fetchTab2AnimeData = useCallback(async () => {
     try {
       if (viewerId) {
         setPlanningListAnimeListAnime(
-          await getViewerList(accessToken, viewerId, 'PLANNING'),
+          await getViewerList(accessToken, viewerId, 'PLANNING')
         );
         // setCompletedListAnimeListAnime(
         //   await getViewerList(viewerId, 'COMPLETED'),

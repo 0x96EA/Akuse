@@ -27,7 +27,7 @@ const EpisodeEntry: React.FC<EpisodeEntryProps> = ({
   description,
   releaseDate,
   duration,
-  loading,
+  loading
 }) => {
   return (
     <div className="episode-entry" onClick={onPress}>

@@ -1,17 +1,17 @@
+import { app, ipcRenderer } from 'electron';
+import { access } from 'fs';
 import {
   AnimeData,
   CurrentListAnime,
   MostPopularAnime,
-  TrendingAnime,
+  TrendingAnime
 } from '../../types/anilistAPITypes';
 import { MediaListStatus } from '../../types/anilistGraphQLTypes';
 import { ClientData } from '../../types/types';
 import { clientData } from '../clientData';
 import { getOptions, makeRequest } from '../requests';
 import isAppImage from '../packaging/isAppImage';
-import { app, ipcRenderer } from 'electron';
 import { STORAGE } from '../storage';
-import { access } from 'fs';
 
 const CLIENT_DATA: ClientData = clientData;
 const PAGES: number = 20;
@@ -19,7 +19,7 @@ const METHOD: string = 'POST';
 const GRAPH_QL_URL: string = 'https://graphql.anilist.co';
 const HEADERS: Object = {
   'Content-Type': 'application/json',
-  Accept: 'application/json',
+  Accept: 'application/json'
 };
 const MEDIA_DATA: string = `
         id
@@ -96,7 +96,7 @@ export const fetchAccessToken = async (code: string): Promise<string> => {
       isAppImage || !app.isPackaged
         ? 'https://anilist.co/api/v2/oauth/pin'
         : clientData.redirectUri,
-    code: code,
+    code
   };
 
   const respData = await makeRequest(METHOD, url, HEADERS, data);
@@ -110,7 +110,7 @@ export const fetchAccessToken = async (code: string): Promise<string> => {
  * @returns viewer id
  */
 export const getViewerId = async (accessToken: string): Promise<number> => {
-  var query = `
+  const query = `
           query {
               Viewer {
                   id
@@ -118,10 +118,10 @@ export const getViewerId = async (accessToken: string): Promise<number> => {
           }
       `;
 
-  var headers = {
-    Authorization: 'Bearer ' + accessToken,
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    Accept: 'application/json'
   };
 
   const options = getOptions(query);
@@ -136,8 +136,11 @@ export const getViewerId = async (accessToken: string): Promise<number> => {
  * @param {*} viewerId
  * @returns object with viewer info
  */
-export const getViewerInfo = async (accessToken: string, viewerId: number | null) => {
-  var query = `
+export const getViewerInfo = async (
+  accessToken: string,
+  viewerId: number | null
+) => {
+  const query = `
           query($userId : Int) {
               User(id: $userId, sort: ID) {
                   id
@@ -149,14 +152,14 @@ export const getViewerInfo = async (accessToken: string, viewerId: number | null
           }
       `;
 
-  var headers = {
-    Authorization: 'Bearer ' + accessToken,
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    Accept: 'application/json'
   };
 
-  var variables = {
-    userId: viewerId,
+  const variables = {
+    userId: viewerId
   };
 
   const options = getOptions(query, variables);
@@ -175,9 +178,9 @@ export const getViewerInfo = async (accessToken: string, viewerId: number | null
 export const getViewerList = async (
   accessToken: string,
   viewerId: number,
-  status: MediaListStatus,
+  status: MediaListStatus
 ): Promise<CurrentListAnime> => {
-  var query = `
+  const query = `
           query($userId : Int) {
               MediaListCollection(userId : $userId, type: ANIME, status : ${status}, sort: UPDATED_TIME_DESC) {
                   lists {
@@ -196,14 +199,14 @@ export const getViewerList = async (
           }
       `;
 
-  var headers = {
-    Authorization: 'Bearer ' + accessToken,
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    Accept: 'application/json'
   };
 
-  var variables = {
-    userId: viewerId,
+  const variables = {
+    userId: viewerId
   };
 
   const options = getOptions(query, variables);
@@ -217,7 +220,7 @@ export const getViewerList = async (
 
 // NOT WORKING
 export const getFollowingUsers = async (accessToken: string, viewerId: any) => {
-  var query = `
+  const query = `
           query($userId : Int) {
               User(id: $userId, sort: ID) {
                   id
@@ -229,14 +232,14 @@ export const getFollowingUsers = async (accessToken: string, viewerId: any) => {
           }
       `;
 
-  var headers = {
-    Authorization: 'Bearer ' + accessToken,
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    Accept: 'application/json'
   };
 
-  var variables = {
-    userId: viewerId,
+  const variables = {
+    userId: viewerId
   };
 
   const options = getOptions(query, variables);
@@ -250,7 +253,7 @@ export const getFollowingUsers = async (accessToken: string, viewerId: any) => {
  * @returns object with anime info
  */
 export const getAnimeInfo = async (accessToken: string, animeId: any) => {
-  var query = `
+  const query = `
           query($id: Int) {
               Media(id: $id, type: ANIME) {
                   ${MEDIA_DATA}
@@ -258,14 +261,14 @@ export const getAnimeInfo = async (accessToken: string, animeId: any) => {
           }
       `;
 
-  var headers = {
-    Authorization: 'Bearer ' + accessToken,
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    Accept: 'application/json'
   };
 
-  var variables = {
-    id: animeId,
+  const variables = {
+    id: animeId
   };
 
   const options = getOptions(query, variables);
@@ -283,9 +286,9 @@ export const getAnimeInfo = async (accessToken: string, animeId: any) => {
  */
 export const getTrendingAnime = async (
   accessToken: string,
-  viewerId: number | null,
+  viewerId: number | null
 ): Promise<TrendingAnime> => {
-  var query = `
+  const query = `
       {
           Page(page: 1, perPage: ${PAGES}) {
               pageInfo {
@@ -302,14 +305,14 @@ export const getTrendingAnime = async (
 
   if (viewerId) {
     var headers: any = {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   } else {
     var headers: any = {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   }
 
@@ -327,9 +330,9 @@ export const getTrendingAnime = async (
  */
 export const getMostPopularAnime = async (
   accessToken: string,
-  viewerId: number | null,
+  viewerId: number | null
 ): Promise<MostPopularAnime> => {
-  var query = `
+  const query = `
       {
           Page(page: 1, perPage: ${PAGES}) {
               pageInfo {
@@ -346,14 +349,14 @@ export const getMostPopularAnime = async (
 
   if (viewerId) {
     var headers: any = {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   } else {
     var headers: any = {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   }
 
@@ -370,9 +373,9 @@ export const getMostPopularAnime = async (
  */
 export const getNextReleases = async (
   accessToken: string,
-  viewerId: number | null,
+  viewerId: number | null
 ) => {
-  var query = `
+  const query = `
       {
           Page(page: 1, perPage: ${PAGES}) {
               pageInfo {
@@ -389,14 +392,14 @@ export const getNextReleases = async (
 
   if (viewerId) {
     var headers: any = {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   } else {
     var headers: any = {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   }
 
@@ -415,9 +418,9 @@ export const getNextReleases = async (
 export const searchFilteredAnime = async (
   args: string,
   accessToken: string,
-  viewerId: number | null,
+  viewerId: number | null
 ): Promise<AnimeData> => {
-  var query = `
+  const query = `
       {
           Page(page: 1, perPage: 50) {
               pageInfo {
@@ -434,14 +437,14 @@ export const searchFilteredAnime = async (
 
   if (viewerId) {
     var headers: any = {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   } else {
     var headers: any = {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   }
 
@@ -457,7 +460,7 @@ export const searchFilteredAnime = async (
  * @returns object with next anime releases
  */
 export const releasingAnimes = async () => {
-  var query = `
+  const query = `
       {
           Page(page: 1, perPage: ${PAGES}) {
               pageInfo {
@@ -489,9 +492,9 @@ export const releasingAnimes = async () => {
 export const getAnimesByGenre = async (
   genre: any,
   accessToken: string,
-  viewerId: number | null,
+  viewerId: number | null
 ) => {
-  var query = `
+  const query = `
       {
           Page(page: 1, perPage: ${PAGES}) {
               pageInfo {
@@ -508,14 +511,14 @@ export const getAnimesByGenre = async (
 
   if (viewerId) {
     var headers: any = {
-      Authorization: 'Bearer ' + accessToken,
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   } else {
     var headers: any = {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
   }
 
@@ -532,7 +535,7 @@ export const getAnimesByGenre = async (
  * @returns object with searched animes
  */
 export const getSearchedAnimes = async (input: any) => {
-  var query = `
+  const query = `
       {
           Page(page: 1, perPage: ${PAGES}) {
               pageInfo {
@@ -572,10 +575,10 @@ export const updateAnimeFromList = async (
   mediaId: any,
   status?: any,
   scoreRaw?: any,
-  progress?: any,
+  progress?: any
 ): Promise<number | null> => {
   try {
-    var query = `
+    const query = `
           mutation($mediaId: Int${progress ? ', $progress: Int' : ''}${scoreRaw ? ', $scoreRaw: Int' : ''}${status ? ', $status: MediaListStatus' : ''}) {
               SaveMediaListEntry(mediaId: $mediaId${progress ? ', progress: $progress' : ''}${scoreRaw ? ', scoreRaw: $scoreRaw' : ''}${status ? ', status: $status' : ''}) {
                   id
@@ -583,14 +586,14 @@ export const updateAnimeFromList = async (
           }
       `;
 
-    var headers = {
-      Authorization: 'Bearer ' + accessToken,
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
 
-    var variables: any = {
-      mediaId: mediaId,
+    const variables: any = {
+      mediaId
     };
 
     if (status !== undefined) variables.status = status;
@@ -601,7 +604,7 @@ export const updateAnimeFromList = async (
     const respData = await makeRequest(METHOD, GRAPH_QL_URL, headers, options);
 
     console.log(
-      `Anime list updated (status: ${status},score: ${scoreRaw},progress: ${progress}) for list ${mediaId}`,
+      `Anime list updated (status: ${status},score: ${scoreRaw},progress: ${progress}) for list ${mediaId}`
     );
 
     return respData.data.SaveMediaListEntry.id;
@@ -611,9 +614,12 @@ export const updateAnimeFromList = async (
   }
 };
 
-export const deleteAnimeFromList = async (accessToken: string, id: any): Promise<boolean> => {
+export const deleteAnimeFromList = async (
+  accessToken: string,
+  id: any
+): Promise<boolean> => {
   try {
-    var query = `
+    const query = `
           mutation($id: Int){
               DeleteMediaListEntry(id: $id){
                   deleted
@@ -623,14 +629,14 @@ export const deleteAnimeFromList = async (accessToken: string, id: any): Promise
 
     console.log('delte: ', id);
 
-    var headers = {
-      Authorization: 'Bearer ' + accessToken,
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      Accept: 'application/json'
     };
 
-    var variables = {
-      id: id,
+    const variables = {
+      id
     };
 
     const options = getOptions(query, variables);
@@ -650,9 +656,9 @@ export const deleteAnimeFromList = async (accessToken: string, id: any): Promise
 export const updateAnimeProgress = async (
   accessToken: string,
   mediaId: number,
-  progress: number,
+  progress: number
 ) => {
-  var query = `
+  const query = `
           mutation($mediaId: Int, $progress: Int) {
               SaveMediaListEntry(mediaId: $mediaId, progress: $progress) {
                   id
@@ -661,15 +667,15 @@ export const updateAnimeProgress = async (
           }
       `;
 
-  var headers = {
-    Authorization: 'Bearer ' + accessToken,
+  const headers = {
+    Authorization: `Bearer ${accessToken}`,
     'Content-Type': 'application/json',
-    Accept: 'application/json',
+    Accept: 'application/json'
   };
 
-  var variables = {
-    mediaId: mediaId,
-    progress: progress,
+  const variables = {
+    mediaId,
+    progress
   };
 
   const options = getOptions(query, variables);

@@ -16,15 +16,12 @@ import { STORAGE } from '../storage';
  */
 export const getUniversalEpisodeUrl = async (
   listAnimeData: ListAnimeData,
-  episode: number,
+  episode: number
 ): Promise<IVideo | null> => {
   const lang = await STORAGE.getSourceFlag();
   const dubbed = await STORAGE.getDubbed();
 
-  const customTitle =
-    animeCustomTitles[lang][
-      listAnimeData.media?.id!
-    ];
+  const customTitle = animeCustomTitles[lang][listAnimeData.media?.id!];
 
   const animeTitles = getParsedAnimeTitles(listAnimeData.media);
   if (customTitle) animeTitles.unshift(customTitle.title);
@@ -33,7 +30,7 @@ export const getUniversalEpisodeUrl = async (
   //   ? (animeTitles = [customTitle.title])
   //   : (animeTitles = getParsedAnimeTitles(listAnimeData.media));
 
-  console.log(lang + ' ' + dubbed + ' ' + customTitle?.title);
+  console.log(`${lang} ${dubbed} ${customTitle?.title}`);
 
   switch (lang) {
     case 'US': {
@@ -41,7 +38,7 @@ export const getUniversalEpisodeUrl = async (
         animeTitles,
         customTitle && !dubbed ? customTitle.index : 0,
         episode,
-        dubbed,
+        dubbed
       );
       return data ? getDefaultQualityVideo(data) : null;
     }
@@ -50,7 +47,7 @@ export const getUniversalEpisodeUrl = async (
         animeTitles,
         customTitle && !dubbed ? customTitle.index : 0,
         episode,
-        dubbed,
+        dubbed
       );
       return data ? getDefaultQualityVideo(data) : null; // change when animeunity api updates
     }
@@ -60,7 +57,7 @@ export const getUniversalEpisodeUrl = async (
 };
 
 export const getDefaultQualityVideo = (videos: IVideo[]): IVideo =>
-  videos.find((video) => video.quality === 'default') ??
+  videos.find(video => video.quality === 'default') ??
   getBestQualityVideo(videos);
 
 export const getBestQualityVideo = (videos: IVideo[]): IVideo => {

@@ -3,7 +3,7 @@ import './styles/Slideshow.css';
 import { IVideo } from '@consumet/extensions';
 import {
   faArrowUpRightFromSquare,
-  faPlay,
+  faPlay
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import DOMPurify from 'dompurify';
@@ -18,7 +18,7 @@ import {
   getAvailableEpisodes,
   getParsedSeasonYear,
   getTitle,
-  parseDescription,
+  parseDescription
 } from '../../modules/utils';
 import { ListAnimeData } from '../../types/anilistAPITypes';
 import { EpisodeInfo } from '../../types/types';
@@ -65,7 +65,7 @@ const Slide: React.FC<SlideProps> = ({ listAnimeData, index, isVisible }) => {
   }, [isVisible]);
 
   const fetchEpisodesInfo = async () => {
-    axios.get(`${EPISODES_INFO_URL}${listAnimeData.media.id}`).then((data) => {
+    axios.get(`${EPISODES_INFO_URL}${listAnimeData.media.id}`).then(data => {
       if (data.data && data.data.episodes) setEpisodesInfo(data.data.episodes);
     });
   };
@@ -75,14 +75,14 @@ const Slide: React.FC<SlideProps> = ({ listAnimeData, index, isVisible }) => {
     setLoading(true);
 
     await fetchEpisodesInfo();
-    getUniversalEpisodeUrl(listAnimeData, 1).then((data) => {
+    getUniversalEpisodeUrl(listAnimeData, 1).then(data => {
       if (!data) {
         toast(`Source not found.`, {
           style: {
             color: style.getPropertyValue('--font-2'),
-            backgroundColor: style.getPropertyValue('--color-3'),
+            backgroundColor: style.getPropertyValue('--color-3')
           },
-          icon: '❌',
+          icon: '❌'
         });
         setLoading(false);
 
@@ -126,7 +126,7 @@ const Slide: React.FC<SlideProps> = ({ listAnimeData, index, isVisible }) => {
           className={`shadow-overlay ${shadowAnimationClasses}`}
           // style={{ display: isVisible ? 'block' : 'none' }}
         >
-          <div className={`content show`}>
+          <div className="content show">
             <div className="anime-info">
               <div className="anime-format">{listAnimeData.media.format}</div>•
               <div className="anime-year">
@@ -143,10 +143,10 @@ const Slide: React.FC<SlideProps> = ({ listAnimeData, index, isVisible }) => {
               className="anime-description"
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(
-                  parseDescription(listAnimeData.media.description ?? ''),
-                ),
+                  parseDescription(listAnimeData.media.description ?? '')
+                )
               }}
-            ></div>
+            />
             <div className="buttons">
               <ButtonMain
                 text="Watch now"
@@ -192,9 +192,9 @@ const Slideshow: React.FC<SlideshowProps> = ({ listAnimeData }) => {
   useEffect(() => {
     setAnimeData(
       listAnimeData
-        ?.filter((animeData) => animeData?.media.bannerImage)
-        ?.filter((animeData) => !animeData.media.mediaListEntry)
-        .slice(0, 5),
+        ?.filter(animeData => animeData?.media.bannerImage)
+        ?.filter(animeData => !animeData.media.mediaListEntry)
+        .slice(0, 5)
     );
   }, [listAnimeData]);
 
@@ -248,7 +248,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ listAnimeData }) => {
                   key={index}
                   className={index === currentIndex ? 'dot active' : 'dot'}
                   onClick={() => goToIndex(index)}
-                ></span>
+                />
               ))}
           </div>
         </div>

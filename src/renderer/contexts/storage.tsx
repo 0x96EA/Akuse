@@ -11,7 +11,7 @@ const StorageContext = createContext<StorageContextType>({
   skipTime: STORE_SCHEMA.intro_skip_time.default,
   showDuration: STORE_SCHEMA.show_duration.default,
   trailerVolumeOn: STORE_SCHEMA.trailer_volume_on.default,
-  updateStorage: async () => {},
+  updateStorage: async () => {}
 });
 
 export function useStorageContext() {
@@ -19,7 +19,7 @@ export function useStorageContext() {
 }
 
 export function StorageProvider({
-  children,
+  children
 }: {
   children: ReactNode;
 }): ReactElement {

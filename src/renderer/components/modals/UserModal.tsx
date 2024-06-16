@@ -1,17 +1,17 @@
 import './styles/UserModal.css';
 
 import ReactDOM from 'react-dom';
-import { ModalPage, ModalPageShadow, ModalPageSizeableContent } from './Modal';
-import { ButtonMain } from '../Buttons';
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
 import { ipcRenderer } from 'electron';
 import { useRef } from 'react';
+import { ButtonMain } from '../Buttons';
+import { ModalPage, ModalPageShadow, ModalPageSizeableContent } from './Modal';
 
 const modalsRoot = document.getElementById('modals-root');
 
 const UserModal: React.FC<{ show: boolean; onClose: () => void }> = ({
   show,
-  onClose,
+  onClose
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +28,7 @@ const UserModal: React.FC<{ show: boolean; onClose: () => void }> = ({
           <div className="user-modal-content">
             <div className="log-out-wrapper">
               <ButtonMain
-                text={'Log out'}
+                text="Log out"
                 tint="primary"
                 icon={faRightToBracket}
                 onClick={() => {
@@ -40,7 +40,7 @@ const UserModal: React.FC<{ show: boolean; onClose: () => void }> = ({
         </ModalPageSizeableContent>
       </ModalPage>
     </>,
-    modalsRoot!,
+    modalsRoot!
   );
 };
 

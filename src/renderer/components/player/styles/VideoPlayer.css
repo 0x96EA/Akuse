@@ -155,7 +155,7 @@
 }
 
 .video-progress-bar::before {
-  content: "";
+  content: '';
   right: -10px;
   top: 50%;
   width: 15px;
@@ -182,7 +182,9 @@
   position: absolute;
   opacity: 0;
   background-color: rgba(0, 0, 0, 0.4);
-  box-shadow: inset 0px -100px 400px -100px #000000, inset 0px 100px 400px -100px #000000;
+  box-shadow:
+    inset 0px -100px 400px -100px #000000,
+    inset 0px 100px 400px -100px #000000;
   transition: 0.3s;
   cursor: none;
 }
@@ -316,11 +318,11 @@
 }
 
 .up-controls .left .info:hover {
-  filter: brightness(0.80);
+  filter: brightness(0.8);
 }
 
 .up-controls .left .info:active {
-  filter: brightness(0.70);
+  filter: brightness(0.7);
 }
 
 .up-controls .info .title {
@@ -407,7 +409,12 @@
   vertical-align: top;
 }
 
-.up-controls .other-episodes-content .dropdown .episode .title span.current-tag {
+.up-controls
+  .other-episodes-content
+  .dropdown
+  .episode
+  .title
+  span.current-tag {
   position: absolute;
   top: 3px;
   right: 0;

@@ -1,6 +1,9 @@
 import './styles/AnimeSection.css';
 
-import { faArrowLeftLong, faArrowRightLong } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowLeftLong,
+  faArrowRightLong
+} from '@fortawesome/free-solid-svg-icons';
 import { useRef, useState } from 'react';
 
 import { ListAnimeData } from '../../types/anilistAPITypes';
@@ -24,7 +27,7 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ title, animeData }) => {
         !(
           animeListWrapperRef.current.clientWidth >
           animeListRef.current.scrollWidth
-        ),
+        )
       );
     }
   };
@@ -76,7 +79,7 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ title, animeData }) => {
           {(animeData?.length ? animeData : Array(20).fill(undefined)).map(
             (listAnimeData, index) => (
               <AnimeEntry key={index} listAnimeData={listAnimeData} />
-            ),
+            )
           )}
         </div>
       </div>

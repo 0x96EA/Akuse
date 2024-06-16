@@ -1,6 +1,6 @@
 import { AnimeData, ListAnimeData } from '../types/anilistAPITypes';
 import { Media, MediaFormat, MediaStatus } from '../types/anilistGraphQLTypes';
-import { animeCustomTitles } from '../modules/animeCustomTitles';
+import { animeCustomTitles } from './animeCustomTitles';
 
 const MONTHS = {
   '1': 'January',
@@ -23,21 +23,21 @@ const MONTHS = {
   '09': 'Septempber',
   '10': 'October',
   '11': 'November',
-  '12': 'December',
+  '12': 'December'
 };
 
 export const animeDataToListAnimeData = (
-  animeData: AnimeData,
+  animeData: AnimeData
 ): ListAnimeData[] => {
   if (animeData?.media) {
-    let data: ListAnimeData[] = [];
+    const data: ListAnimeData[] = [];
 
-    animeData.media.forEach((media) => {
+    animeData.media.forEach(media => {
       data.push({
         id: null,
         mediaId: null,
         progress: null,
-        media: media,
+        media
       });
     });
 
@@ -58,11 +58,11 @@ export const getTitle = (animeEntry: Media): string => {
 
   if (animeEntry.title.english) {
     return animeEntry.title.english;
-  } else if (animeEntry.title.romaji) {
-    return animeEntry.title.romaji;
-  } else {
-    return '';
   }
+  if (animeEntry.title.romaji) {
+    return animeEntry.title.romaji;
+  }
+  return '';
 };
 
 /**
@@ -72,7 +72,7 @@ export const getTitle = (animeEntry: Media): string => {
  * @returns anime titles
  */
 export const getTitlesAndSynonyms = (animeEntry: Media): string[] => {
-  var animeTitles: string[] = [];
+  const animeTitles: string[] = [];
 
   if (!animeEntry.title) return animeTitles;
 
@@ -168,26 +168,26 @@ export const isAnimeAvailable = (animeEntry: Media) => {
  * @returns
  */
 export const getTimeUntilAiring = (
-  animeEntry: Media,
+  animeEntry: Media
 ): { days: number; hours: number; minutes: number; seconds: number } | null => {
   if (animeEntry.nextAiringEpisode == null) return null;
 
   let seconds = animeEntry.nextAiringEpisode.timeUntilAiring;
-  let days = Math.floor(seconds / (3600 * 24));
+  const days = Math.floor(seconds / (3600 * 24));
 
   seconds -= days * 3600 * 24;
-  let hours = Math.floor(seconds / 3600);
+  const hours = Math.floor(seconds / 3600);
 
   seconds -= hours * 3600;
-  let minutes = Math.floor(seconds / 60);
+  const minutes = Math.floor(seconds / 60);
 
   seconds -= minutes * 60;
 
   return {
-    days: days,
-    hours: hours,
-    minutes: minutes,
-    seconds: seconds,
+    days,
+    hours,
+    minutes,
+    seconds
   };
 };
 
@@ -275,9 +275,8 @@ export const getParsedFormat = (format: MediaFormat | undefined) => {
 export const getParsedSeasonYear = (animeEntry: Media | undefined): string => {
   if (animeEntry?.seasonYear) {
     return animeEntry.seasonYear?.toString();
-  } else {
-    return '?';
   }
+  return '?';
 };
 
 /**
@@ -316,13 +315,15 @@ export const parseAirdate = (airdate: string) =>
  * @returns parsed anime titles
  */
 export const getParsedAnimeTitles = (animeEntry: Media): string[] => {
-  var animeTitles = getTitlesAndSynonyms(animeEntry);
+  const animeTitles = getTitlesAndSynonyms(animeEntry);
 
-  animeTitles.forEach((title) => {
-    if (title.includes('Season '))
+  animeTitles.forEach(title => {
+    if (title.includes('Season ')) {
       animeTitles.push(title.replace('Season ', ''));
-    if (title.includes('Season ') && title.includes('Part '))
+    }
+    if (title.includes('Season ') && title.includes('Part ')) {
       animeTitles.push(title.replace('Season ', '').replace('Part ', ''));
+    }
     if (title.includes('Part ')) animeTitles.push(title.replace('Part ', ''));
     if (title.includes(':')) animeTitles.push(title.replace(':', ''));
   });
@@ -331,9 +332,9 @@ export const getParsedAnimeTitles = (animeEntry: Media): string[] => {
 };
 
 export const formatTime = (time: number) => {
-  let seconds: any = Math.floor(time % 60),
-    minutes: any = Math.floor(time / 60) % 60,
-    hours: any = Math.floor(time / 3600);
+  let seconds: any = Math.floor(time % 60);
+  let minutes: any = Math.floor(time / 60) % 60;
+  let hours: any = Math.floor(time / 3600);
   seconds = seconds < 10 ? `0${seconds}` : seconds;
   minutes = minutes < 10 ? `0${minutes}` : minutes;
   hours = hours < 10 ? `0${hours}` : hours;
@@ -345,23 +346,23 @@ export const formatTime = (time: number) => {
 
 export const getUrlByCoverType = (
   images: { coverType: string; url: string }[],
-  coverType: string,
+  coverType: string
 ): string | undefined => {
   const image = images.find(
-    (img) => img.coverType.toLowerCase() === coverType.toLowerCase(),
+    img => img.coverType.toLowerCase() === coverType.toLowerCase()
   );
   return image ? image.url : undefined;
 };
 
 export const doSomethingToIFrame = (
   iFrame: HTMLIFrameElement,
-  func: 'stopVideo' | 'playVideo' | 'pauseVideo',
+  func: 'stopVideo' | 'playVideo' | 'pauseVideo'
 ) => {
   if (!iFrame || !iFrame.contentWindow) return;
 
   iFrame.contentWindow.postMessage(
-    JSON.stringify({ event: 'command', func: func }),
-    '*',
+    JSON.stringify({ event: 'command', func }),
+    '*'
   );
 };
 
@@ -372,8 +373,8 @@ export const toggleIFrameMute = (iFrame: HTMLIFrameElement, mute: boolean) => {
     JSON.stringify({
       event: 'command',
       func: 'setVolume',
-      args: [mute ? 0 : 1],
+      args: [mute ? 0 : 1]
     }),
-    '*',
+    '*'
   );
 };

@@ -14,11 +14,11 @@ export const getEpisodeUrl = async (
   animeTitles: string[],
   index: number,
   episode: number,
-  dubbed: boolean,
+  dubbed: boolean
 ): Promise<IVideo[] | null> => {
   console.log(
     `%c Episode ${episode}, looking for AnimeUnity source...`,
-    `color: #6b8cff`,
+    `color: #6b8cff`
   );
 
   for (const animeSearch of animeTitles) {
@@ -43,11 +43,11 @@ async function searchEpisodeUrl(
   animeSearch: string,
   index: number,
   episode: number,
-  dubbed: boolean,
+  dubbed: boolean
 ): Promise<IVideo[] | null> {
   const animeId = await getAnimeId(
     dubbed ? 0 : index,
-    dubbed ? `${animeSearch} (ITA)` : animeSearch,
+    dubbed ? `${animeSearch} (ITA)` : animeSearch
   );
 
   if (animeId) {
@@ -72,12 +72,12 @@ async function searchEpisodeUrl(
  */
 export const getAnimeId = async (
   index: number,
-  animeSearch: string,
+  animeSearch: string
 ): Promise<string | null> => {
   const data = await consumet.search(animeSearch);
-  console.log(animeSearch)
-  console.log(index)
-  console.log(data)
+  console.log(animeSearch);
+  console.log(index);
+  console.log(data);
   return data.results[index]?.id ?? null;
 };
 
@@ -90,11 +90,11 @@ export const getAnimeId = async (
  */
 export const getAnimeEpisodeId = async (
   animeId: string,
-  episode: number,
+  episode: number
 ): Promise<string | null> => {
   const data = await consumet.fetchAnimeInfo(
     animeId,
-    episode > 120 ? Math.floor(episode / 120) + 1 : 1,
+    episode > 120 ? Math.floor(episode / 120) + 1 : 1
   );
   return data?.episodes?.[(episode % 120) - 1]?.id ?? null;
 };

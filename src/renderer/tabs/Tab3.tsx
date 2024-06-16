@@ -6,19 +6,19 @@ import {
   faHeading,
   faLeaf,
   faMasksTheater,
-  faTrash,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import Dots from 'react-activity/dist/Dots';
 
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { FORMATS, GENRES, SEASONS, SORTS } from '../../constants/anilist';
 import { searchFilteredAnime } from '../../modules/anilist/anilistApi';
 import { animeDataToListAnimeData } from '../../modules/utils';
 import { ListAnimeData } from '../../types/anilistAPITypes';
 import AnimeEntry from '../components/AnimeEntry';
 import Heading from '../components/Heading';
-import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { useUIContext } from '../contexts/ui';
 import { useStorageContext } from '../contexts/storage';
 
@@ -80,7 +80,7 @@ const Tab3 = () => {
     let format = '';
     let sort = '';
 
-    let args = [
+    const args = [
       selectedTitle !== ''
         ? (title = `search: "${selectedTitle}"`)
         : (title = ''),
@@ -96,14 +96,14 @@ const Tab3 = () => {
       selectedFormat !== ''
         ? (format = `format: ${selectedFormat}`)
         : (format = ''),
-      selectedSort !== '' ? (sort = `sort: ${selectedSort}`) : (sort = ''),
-    ].filter((item) => !(item == ''));
+      selectedSort !== '' ? (sort = `sort: ${selectedSort}`) : (sort = '')
+    ].filter(item => !(item == ''));
 
     const parsedArgs = args.concat('type: ANIME').join(', ');
     setSearchedAnime(
       animeDataToListAnimeData(
-        await searchFilteredAnime(parsedArgs, accessToken, viewerId),
-      ),
+        await searchFilteredAnime(parsedArgs, accessToken, viewerId)
+      )
     );
   };
 
@@ -141,7 +141,7 @@ const Tab3 = () => {
                 onChange={handleGenreChange}
                 className={selectedGenre === '' ? '' : 'active'}
               >
-                {GENRES.map((genre) => (
+                {GENRES.map(genre => (
                   <option key={genre.value} value={genre.value ?? ''}>
                     {genre.label}
                   </option>
@@ -159,7 +159,7 @@ const Tab3 = () => {
                   onChange={handleSeasonChange}
                   className={selectedSeason === '' ? '' : 'active'}
                 >
-                  {SEASONS.map((season) => (
+                  {SEASONS.map(season => (
                     <option key={season.value} value={season.value ?? ''}>
                       {season.label}
                     </option>
@@ -184,7 +184,7 @@ const Tab3 = () => {
                 onChange={handleFormatChange}
                 className={selectedFormat === '' ? '' : 'active'}
               >
-                {FORMATS.map((format) => (
+                {FORMATS.map(format => (
                   <option key={format.value} value={format.value ?? ''}>
                     {format.label}
                   </option>
@@ -201,7 +201,7 @@ const Tab3 = () => {
                 onChange={handleSortChange}
                 className={selectedSort === '' ? '' : 'active'}
               >
-                {SORTS.map((sort) => (
+                {SORTS.map(sort => (
                   <option key={sort.value} value={sort.value ?? ''}>
                     {sort.label}
                   </option>

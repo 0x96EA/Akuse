@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { formatTime } from '../../../modules/utils';
 import { faExternalLink, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { formatTime } from '../../../modules/utils';
 import { ButtonMain } from '../Buttons';
 import { useStorageContext } from '../../contexts/storage';
 
@@ -24,7 +24,7 @@ const BottomControls: React.FC<BottomControlsProps> = ({
   buffered,
   onClick,
   onDblClick,
-  togglePictureInPicture,
+  togglePictureInPicture
 }) => {
   const videoTimelineRef = useRef<HTMLDivElement>(null);
   const { skipTime, showDuration, updateStorage } = useStorageContext();
@@ -78,7 +78,7 @@ const BottomControls: React.FC<BottomControlsProps> = ({
   const calculateProgressTime = (event: any) => {
     if (!videoTimelineRef.current || !duration) return;
 
-    let timelineWidth = videoTimelineRef.current.clientWidth;
+    const timelineWidth = videoTimelineRef.current.clientWidth;
     const newOffsetX = event.nativeEvent.offsetX;
     let newPercent = Math.floor((newOffsetX / timelineWidth) * duration);
     if (newPercent < 0) newPercent = 0;
@@ -104,8 +104,9 @@ const BottomControls: React.FC<BottomControlsProps> = ({
 
     let newTime = percentage * videoRef.current.duration;
     if (newTime < 0) newTime = 0;
-    if (newTime > videoRef.current.duration)
+    if (newTime > videoRef.current.duration) {
       newTime = videoRef.current.duration;
+    }
     setProgressBarWidth(`${((newTime ?? 0) / (duration ?? 0)) * 100}%`);
 
     try {
@@ -139,7 +140,7 @@ const BottomControls: React.FC<BottomControlsProps> = ({
           onClick={handleSkipIntro}
         />
         <ButtonMain
-          text={'PIP'}
+          text="PIP"
           icon={faExternalLink}
           tint="light"
           onClick={togglePictureInPicture}
@@ -149,7 +150,7 @@ const BottomControls: React.FC<BottomControlsProps> = ({
       <div
         className="video-timeline"
         onClick={dragProgressBar}
-        onMouseMove={(event) => {
+        onMouseMove={event => {
           calculateProgressTime(event);
           if (!isMouseDown) return;
           dragProgressBar(event);
@@ -162,7 +163,7 @@ const BottomControls: React.FC<BottomControlsProps> = ({
           <div
             className="video-buffered-bar"
             style={{ width: bufferedBarWidth }}
-          ></div>
+          />
           {/* <div className="preview-thumbnail">
             <img src={previewThumbnailSrc} alt="preview" />
             <div className="time">
@@ -173,7 +174,7 @@ const BottomControls: React.FC<BottomControlsProps> = ({
           <div
             className="video-progress-bar"
             style={{ width: progressBarWidth }}
-          ></div>
+          />
         </div>
       </div>
       <p

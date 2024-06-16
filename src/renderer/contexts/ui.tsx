@@ -3,7 +3,7 @@ import {
   ReactNode,
   createContext,
   useContext,
-  useState,
+  useState
 } from 'react';
 import { useStorage } from '../hooks/storage';
 
@@ -16,7 +16,7 @@ const UIContext = createContext<{
   viewerId: null,
   setViewerId: () => {},
   hasListUpdated: false,
-  setHasListUpdated: () => {},
+  setHasListUpdated: () => {}
 });
 
 export function useUIContext() {
@@ -24,7 +24,7 @@ export function useUIContext() {
 }
 
 export function UIProvider({
-  children,
+  children
 }: {
   children: ReactNode;
 }): ReactElement {

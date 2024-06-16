@@ -8,7 +8,7 @@ import {
   faVideo,
   faVolumeHigh,
   faVolumeLow,
-  faVolumeXmark,
+  faVolumeXmark
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Hls from 'hls.js';
@@ -25,7 +25,7 @@ interface SettingsProps {
   hls?: Hls;
   onChangeEpisode: (
     episode: number | null,
-    reloadAtPreviousTime?: boolean,
+    reloadAtPreviousTime?: boolean
   ) => Promise<boolean>;
 }
 
@@ -35,7 +35,7 @@ const VideoSettings: React.FC<SettingsProps> = ({
   onShow,
   videoRef,
   hls,
-  onChangeEpisode,
+  onChangeEpisode
 }) => {
   const [hlsData, setHlsData] = useState<Hls>();
 
@@ -45,7 +45,7 @@ const VideoSettings: React.FC<SettingsProps> = ({
     watchDubbed,
     selectedLanguage,
     skipTime,
-    updateStorage,
+    updateStorage
   } = useStorageContext();
 
   const [isMuted, setIsMuted] = useState(false);
@@ -72,7 +72,7 @@ const VideoSettings: React.FC<SettingsProps> = ({
       if (videoElement) {
         videoElement.removeEventListener(
           'volumechange',
-          handleVideoVolumeChange,
+          handleVideoVolumeChange
         );
       }
     };
@@ -141,7 +141,7 @@ const VideoSettings: React.FC<SettingsProps> = ({
   };
 
   const handleLanguageChange = async (
-    event: ChangeEvent<HTMLSelectElement>,
+    event: ChangeEvent<HTMLSelectElement>
   ) => {
     const previous = selectedLanguage;
     await updateStorage('source_flag', event.target.value as LanguageOptions);
@@ -157,7 +157,7 @@ const VideoSettings: React.FC<SettingsProps> = ({
   };
 
   const handleSkipTimeChange = async (
-    event: ChangeEvent<HTMLSelectElement>,
+    event: ChangeEvent<HTMLSelectElement>
   ) => {
     await updateStorage('intro_skip_time', parseInt(event.target.value));
   };
@@ -262,7 +262,7 @@ const VideoSettings: React.FC<SettingsProps> = ({
                   checked={updateProgress}
                   onChange={handleUpdateProgressChange}
                 />
-                <span className="slider round"></span>
+                <span className="slider round" />
               </label>
             </li>
           )}
@@ -282,7 +282,7 @@ const VideoSettings: React.FC<SettingsProps> = ({
                   checked={watchDubbed}
                   onChange={handleWatchDubbedChange}
                 />
-                <span className="slider round"></span>
+                <span className="slider round" />
               </label>
             )}
           </li>

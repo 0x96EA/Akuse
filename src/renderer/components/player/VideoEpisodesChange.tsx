@@ -1,7 +1,7 @@
 import {
   faBackward,
   faForward,
-  faLayerGroup,
+  faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
@@ -17,7 +17,10 @@ const Episode: React.FC<{
   isOpen: boolean;
   isCurrent: boolean;
   onClick: () => void;
-  onChangeEpisode: (episode: number, reloadAtPreviousTime?: boolean) => Promise<boolean>;
+  onChangeEpisode: (
+    episode: number,
+    reloadAtPreviousTime?: boolean
+  ) => Promise<boolean>;
 }> = ({
   episode,
   episodeInfo,
@@ -25,7 +28,7 @@ const Episode: React.FC<{
   isOpen,
   isCurrent,
   onClick,
-  onChangeEpisode,
+  onChangeEpisode
 }) => (
   <div className={`episode ${isOpen ? 'active' : ''}`} onClick={onClick}>
     <div className="title">
@@ -61,7 +64,10 @@ const VideoEpisodesChange: React.FC<{
   episodesInfo?: EpisodeInfo[];
   showPreviousEpisodeButton: boolean;
   showNextEpisodeButton: boolean;
-  onChangeEpisode: (episode: number, reloadAtPreviousTime?: boolean) => Promise<boolean>;
+  onChangeEpisode: (
+    episode: number,
+    reloadAtPreviousTime?: boolean
+  ) => Promise<boolean>;
 }> = ({
   show,
   onShow,
@@ -70,7 +76,7 @@ const VideoEpisodesChange: React.FC<{
   episodesInfo,
   showPreviousEpisodeButton,
   showNextEpisodeButton,
-  onChangeEpisode,
+  onChangeEpisode
 }) => {
   const [openEpisode, setOpenEpisode] = useState<number | null>(null);
 
@@ -83,13 +89,16 @@ const VideoEpisodesChange: React.FC<{
   return (
     <>
       <div className="other-episodes-content">
-        <button className={`b-player ${show ? 'active' : ''}`} onClick={toggleShow}>
+        <button
+          className={`b-player ${show ? 'active' : ''}`}
+          onClick={toggleShow}
+        >
           <FontAwesomeIcon className="i" icon={faLayerGroup} />
         </button>
         {show && (
           <div className="dropdown other-episode">
             {Array.from({ length: episodes }, (_, index) => index + 1).map(
-              (episode) => (
+              episode => (
                 <Episode
                   key={episode}
                   episode={episode}
@@ -102,7 +111,7 @@ const VideoEpisodesChange: React.FC<{
                   }
                   onChangeEpisode={onChangeEpisode}
                 />
-              ),
+              )
             )}
           </div>
         )}

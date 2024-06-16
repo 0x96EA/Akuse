@@ -8,7 +8,7 @@ import Dots from 'react-activity/dist/Dots';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   tint?: 'primary' | 'light' | 'dark' | 'warning';
   shadow?: boolean;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 interface ButtonMainProps extends ButtonProps {

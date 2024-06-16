@@ -4,7 +4,7 @@ import {
   faBookmark,
   faCircleCheck,
   faCircleDot,
-  faClock,
+  faClock
 } from '@fortawesome/free-regular-svg-icons';
 import {
   faBan,
@@ -15,7 +15,7 @@ import {
   faPlay,
   faRotate,
   faStopwatch,
-  faBookmark as faBookmarkFull,
+  faBookmark as faBookmarkFull
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DOMPurify from 'dompurify';
@@ -28,14 +28,14 @@ import {
   getParsedStatus,
   getProgress,
   getTimeUntilAiring,
-  parseDescription,
+  parseDescription
 } from '../../../modules/utils';
 import { ListAnimeData } from '../../../types/anilistAPITypes';
 import { MediaStatus } from '../../../types/anilistGraphQLTypes';
 import { ButtonCircle, ButtonLoading, ButtonMain } from '../Buttons';
 import {
   deleteAnimeFromList,
-  updateAnimeFromList,
+  updateAnimeFromList
 } from '../../../modules/anilist/anilistApi';
 import { useStorageContext } from '../../contexts/storage';
 import { useUIContext } from '../../contexts/ui';
@@ -45,7 +45,7 @@ interface AnimeModalStatusProps {
 }
 
 export const AnimeModalStatus: React.FC<AnimeModalStatusProps> = ({
-  status,
+  status
 }) => {
   const style = getComputedStyle(document.body);
   const parsedStatus = getParsedStatus(status);
@@ -101,7 +101,7 @@ interface AnimeModalGenresProps {
 }
 
 export const AnimeModalGenres: React.FC<AnimeModalGenresProps> = ({
-  genres,
+  genres
 }) => {
   return (
     <p className="additional-info">
@@ -121,7 +121,7 @@ interface AnimeModalOtherTitlesProps {
 }
 
 export const AnimeModalOtherTitles: React.FC<AnimeModalOtherTitlesProps> = ({
-  synonyms,
+  synonyms
 }) => {
   return (
     <p className="additional-info">
@@ -141,10 +141,10 @@ interface AnimeModalEpisodesProps {
 }
 
 export const AnimeModalEpisodes: React.FC<AnimeModalEpisodesProps> = ({
-  listAnimeData,
+  listAnimeData
 }) => {
   const format = getParsedFormat(listAnimeData.media.format);
-  const duration = listAnimeData.media.duration;
+  const { duration } = listAnimeData.media;
   const status = getParsedStatus(listAnimeData.media.status);
   const availableEpisodes = getAvailableEpisodes(listAnimeData.media);
 
@@ -181,7 +181,7 @@ interface AnimeModalDescriptionProps {
 }
 
 export const AnimeModalDescription: React.FC<AnimeModalDescriptionProps> = ({
-  listAnimeData,
+  listAnimeData
 }) => {
   const descriptionRef = useRef<HTMLDivElement>(null);
 
@@ -210,11 +210,11 @@ export const AnimeModalDescription: React.FC<AnimeModalDescriptionProps> = ({
         onClick={handleToggleFullText}
         dangerouslySetInnerHTML={{
           __html: DOMPurify.sanitize(
-            parseDescription(listAnimeData.media.description ?? ''),
-          ),
+            parseDescription(listAnimeData.media.description ?? '')
+          )
         }}
-      ></div>
-      <span></span>
+      />
+      <span />
       <span
         // className="show-more show-element"
         className={`show-more ${ellipsis ? 'show-element' : ''}`}
@@ -256,13 +256,13 @@ export const AnimeModalWatchButtons: React.FC<AnimeModalWatchButtonsProps> = ({
   listAnimeData,
   localProgress,
   onPlay,
-  onClose,
+  onClose
   // loading = false,
 }) => {
   const { logged } = useStorageContext();
 
   const [progress, setProgress] = useState<number | undefined>(
-    getProgress(listAnimeData.media),
+    getProgress(listAnimeData.media)
   );
 
   // const progress = getProgress(listAnimeData.media);
@@ -344,14 +344,14 @@ interface IsInListButtonProps {
 
 export const IsInListButton: React.FC<IsInListButtonProps> = ({
   listAnimeData,
-  onClose,
+  onClose
 }) => {
   const { accessToken } = useStorageContext();
   const { setHasListUpdated } = useUIContext();
 
   const [inList, setInList] = useState<boolean>(false);
   const [listId, setListId] = useState<number | undefined>(
-    listAnimeData.media.mediaListEntry?.id,
+    listAnimeData.media.mediaListEntry?.id
   );
 
   const removeFromList = useCallback(async () => {
@@ -370,7 +370,7 @@ export const IsInListButton: React.FC<IsInListButtonProps> = ({
     const data = await updateAnimeFromList(
       accessToken,
       listAnimeData.media.id,
-      'PLANNING',
+      'PLANNING'
     );
     if (data) {
       setHasListUpdated(true);

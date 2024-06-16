@@ -37,13 +37,13 @@ interface CheckboxElementProps {
 const CheckboxElement: React.FC<CheckboxElementProps> = ({
   label,
   checked,
-  onChange,
+  onChange
 }) => {
   return (
     <Element label={label}>
       <label className="switch">
         <input type="checkbox" checked={checked} onChange={onChange} />
-        <span className="slider round"></span>
+        <span className="slider round" />
       </label>
     </Element>
   );
@@ -62,13 +62,13 @@ const SelectElement: React.FC<SelectElementProps> = ({
   label,
   value,
   options,
-  onChange,
+  onChange
 }) => {
   return (
     <Element label={label}>
       <label>
         <select className="main-select-0" value={value} onChange={onChange}>
-          {options.map((option) => (
+          {options.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -87,7 +87,7 @@ const Tab4: React.FC = () => {
     selectedLanguage,
     skipTime,
     showDuration,
-    updateStorage,
+    updateStorage
   } = useStorageContext();
 
   const handleUpdateProgressChange = () => {
@@ -112,7 +112,7 @@ const Tab4: React.FC = () => {
 
   const languageOptions: Option[] = [
     { value: 'US', label: 'English' },
-    { value: 'IT', label: 'Italian' },
+    { value: 'IT', label: 'Italian' }
   ];
 
   const skipTimeOptions: Option[] = [
@@ -123,7 +123,7 @@ const Tab4: React.FC = () => {
     { value: '80', label: '80' },
     { value: '85', label: '85' },
     { value: '90', label: '90' },
-    { value: '95', label: '95' },
+    { value: '95', label: '95' }
   ];
 
   return (

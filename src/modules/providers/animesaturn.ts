@@ -4,18 +4,21 @@ import AnimeSaturn from '@consumet/extensions/dist/providers/anime/animesaturn';
 const consumet = new AnimeSaturn();
 
 /**
- * 
- * @param animeTitles 
- * @param episode 
- * @param dubbed 
- * @returns 
+ *
+ * @param animeTitles
+ * @param episode
+ * @param dubbed
+ * @returns
  */
 export const getEpisodeUrl = async (
   animeTitles: string[],
   episode: number,
-  dubbed: boolean,
+  dubbed: boolean
 ): Promise<IVideo | null> => {
-  console.log(`%c Episode ${episode}, looking for AnimeSaturn source...`, `color: #6b8cff`);
+  console.log(
+    `%c Episode ${episode}, looking for AnimeSaturn source...`,
+    `color: #6b8cff`
+  );
 
   for (const animeSearch of animeTitles) {
     const result = await searchEpisodeUrl(animeSearch, episode, dubbed);
@@ -25,7 +28,7 @@ export const getEpisodeUrl = async (
   }
 
   return null;
-}
+};
 
 /**
  * Gets the episode url and isM3U8 flag
@@ -35,8 +38,14 @@ export const getEpisodeUrl = async (
  * @param {*} dubbed dubbed version or not
  * @returns consumet IVideo if url is found, otherwise null
  */
-async function searchEpisodeUrl(animeSearch: string, episode: number, dubbed: boolean): Promise<IVideo | null> {
-  const animeId = await getAnimeId(dubbed ? `${animeSearch} (ITA)` : animeSearch);
+async function searchEpisodeUrl(
+  animeSearch: string,
+  episode: number,
+  dubbed: boolean
+): Promise<IVideo | null> {
+  const animeId = await getAnimeId(
+    dubbed ? `${animeSearch} (ITA)` : animeSearch
+  );
 
   if (animeId) {
     const animeEpisodeId = await getAnimeEpisodeId(animeId, episode);
@@ -58,7 +67,7 @@ async function searchEpisodeUrl(animeSearch: string, episode: number, dubbed: bo
  * @returns anime id if found, otherwise null
  */
 export const getAnimeId = async (
-  animeSearch: string,
+  animeSearch: string
 ): Promise<string | null> => {
   const data = await consumet.search(animeSearch);
   return data.results[0]?.id ?? null;
@@ -73,7 +82,7 @@ export const getAnimeId = async (
  */
 export const getAnimeEpisodeId = async (
   animeId: string,
-  episode: number,
+  episode: number
 ): Promise<string | null> => {
   const data = await consumet.fetchAnimeInfo(animeId);
   return data?.episodes?.[episode - 1]?.id ?? null;

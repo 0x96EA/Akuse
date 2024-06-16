@@ -27,36 +27,36 @@ export type LanguageOptions = 'IT' | 'US';
 export const STORE_SCHEMA: Record<StoreKeys, any> = {
   logged: {
     type: 'boolean',
-    default: false,
+    default: false
   },
   access_token: {
     type: 'string',
-    default: '',
+    default: ''
   },
   update_progress: {
     type: 'boolean',
-    default: false,
+    default: false
   },
   dubbed: {
     type: 'boolean',
-    default: false,
+    default: false
   },
   source_flag: {
     type: 'string',
-    default: 'US',
+    default: 'US'
   },
   intro_skip_time: {
     type: 'number',
-    default: 85,
+    default: 85
   },
   show_duration: {
     type: 'boolean',
-    default: true,
+    default: true
   },
   trailer_volume_on: {
     type: 'boolean',
-    default: false,
-  },
+    default: false
+  }
 };
 
 // one store to rule them all. Use STORE in the main proccess and call STORAGE on the renderer side

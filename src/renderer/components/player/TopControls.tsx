@@ -6,16 +6,16 @@ import {
   faCompress,
   faExpand,
   faForward,
-  faLayerGroup,
+  faLayerGroup
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import Hls from 'hls.js';
+import { useState } from 'react';
 import { ListAnimeData } from '../../../types/anilistAPITypes';
 import VideoSettings from './VideoSettings';
-import Hls from 'hls.js';
 import { EpisodeInfo } from '../../../types/types';
 import VideoEpisodesChange from './VideoEpisodesChange';
-import { useState } from 'react';
 
 interface TopControlsProps {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -30,7 +30,7 @@ interface TopControlsProps {
   onFullScreentoggle: () => void;
   onChangeEpisode: (
     episode: number | null,
-    reloadAtPreviousTime?: boolean,
+    reloadAtPreviousTime?: boolean
   ) => Promise<boolean>;
   onExit: () => void;
   onClick?: (event: any) => void;
@@ -51,7 +51,7 @@ const TopControls: React.FC<TopControlsProps> = ({
   onChangeEpisode,
   onExit,
   onClick,
-  onDblClick,
+  onDblClick
 }) => {
   const [showSettings, setShowSettings] = useState<boolean>(false);
   const [showEpisodesChange, setShowEpisodesChange] = useState<boolean>(false);
@@ -76,11 +76,11 @@ const TopControls: React.FC<TopControlsProps> = ({
           </span>
         </div>
       </div>
-      <div className="center"></div>
+      <div className="center" />
       <div className="right">
         <VideoSettings
           show={showSettings}
-          onShow={(show) => {
+          onShow={show => {
             closeOthers();
             setShowSettings(show);
           }}
@@ -90,7 +90,7 @@ const TopControls: React.FC<TopControlsProps> = ({
         />
         <VideoEpisodesChange
           show={showEpisodesChange}
-          onShow={(show) => {
+          onShow={show => {
             closeOthers();
             setShowEpisodesChange(show);
           }}

@@ -36,7 +36,7 @@ const getSourceFlag = async (): Promise<LanguageOptions> => {
 const getIntroSkipTime = async (): Promise<number> => {
   const introSkipTime = await ipcRenderer.invoke(
     'getStoreValue',
-    'intro_skip_time',
+    'intro_skip_time'
   );
   return introSkipTime;
 };
@@ -44,7 +44,7 @@ const getIntroSkipTime = async (): Promise<number> => {
 const getShowDuration = async (): Promise<boolean> => {
   const showDuration = await ipcRenderer.invoke(
     'getStoreValue',
-    'show_duration',
+    'show_duration'
   );
   return showDuration;
 };
@@ -52,7 +52,7 @@ const getShowDuration = async (): Promise<boolean> => {
 const getTrailerVolumeOn = async (): Promise<boolean> => {
   const trailerVolumeOn = await ipcRenderer.invoke(
     'getStoreValue',
-    'trailer_volume_on',
+    'trailer_volume_on'
   );
   return trailerVolumeOn;
 };
@@ -71,5 +71,5 @@ export const STORAGE = {
   getSourceFlag,
   getIntroSkipTime,
   getShowDuration,
-  getTrailerVolumeOn,
+  getTrailerVolumeOn
 };

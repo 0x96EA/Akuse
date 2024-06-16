@@ -1,17 +1,17 @@
 import { IVideo } from '@consumet/extensions';
 import Gogoanime from '@consumet/extensions/dist/providers/anime/gogoanime';
-const consumet = new Gogoanime();
 
+const consumet = new Gogoanime();
 
 export const getEpisodeUrl = async (
   animeTitles: string[],
   index: number,
   episode: number,
-  dubbed: boolean,
+  dubbed: boolean
 ): Promise<IVideo[] | null> => {
   console.log(
     `%c Episode ${episode}, looking for Gogoanime source...`,
-    `color: #6b8cff`,
+    `color: #6b8cff`
   );
 
   for (const animeSearch of animeTitles) {
@@ -40,7 +40,7 @@ async function searchEpisodeUrl(
 ): Promise<IVideo[] | null> {
   const animeId = await getAnimeId(
     dubbed ? 0 : index,
-    dubbed ? `${animeSearch} (Dub)` : animeSearch,
+    dubbed ? `${animeSearch} (Dub)` : animeSearch
   );
 
   if (animeId) {
@@ -49,7 +49,7 @@ async function searchEpisodeUrl(
       const data = await consumet.fetchEpisodeSources(animeEpisodeId);
 
       console.log(`%c ${animeSearch}`, `color: #45AD67`);
-      return data.sources
+      return data.sources;
     }
   }
 
@@ -65,7 +65,7 @@ async function searchEpisodeUrl(
  */
 export const getAnimeId = async (
   index: number,
-  animeSearch: string,
+  animeSearch: string
 ): Promise<string | null> => {
   const data = await consumet.search(animeSearch);
   return data.results[index]?.id ?? null;
@@ -80,7 +80,7 @@ export const getAnimeId = async (
  */
 export const getAnimeEpisodeId = async (
   animeId: string,
-  episode: number,
+  episode: number
 ): Promise<string | null> => {
   const data = await consumet.fetchAnimeInfo(animeId);
   return data?.episodes?.[episode - 1]?.id ?? null;

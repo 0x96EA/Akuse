@@ -9,8 +9,8 @@ import axios from 'axios';
  */
 export const getOptions = (query: any = {}, variables: any = {}) => {
   return JSON.stringify({
-    query: query,
-    variables: variables,
+    query,
+    variables
   });
 };
 
@@ -28,13 +28,13 @@ export const makeRequest = async (
   method: 'GET' | 'POST' | string,
   url: string,
   headers: any = {},
-  options: any = {},
+  options: any = {}
 ) => {
   const response = await axios({
-    method: method,
-    url: url,
-    headers: headers,
-    data: options,
+    method,
+    url,
+    headers,
+    data: options
   });
 
   return response.data;

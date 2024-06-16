@@ -5,15 +5,15 @@ import { faTv } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
+import Skeleton from 'react-loading-skeleton';
 import {
   getAvailableEpisodes,
   getParsedFormat,
   getParsedSeasonYear,
-  getTitle,
+  getTitle
 } from '../../modules/utils';
 import { ListAnimeData } from '../../types/anilistAPITypes';
 import AnimeModal from './modals/AnimeModal';
-import Skeleton from 'react-loading-skeleton';
 
 const StatusDot: React.FC<{
   listAnimeData?: ListAnimeData | undefined;
@@ -87,7 +87,7 @@ const AnimeEntry: React.FC<{
             style={{
               backgroundColor: !imageLoaded
                 ? listAnimeData.media.coverImage?.color
-                : 'transparent',
+                : 'transparent'
             }}
           >
             <img
