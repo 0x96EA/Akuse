@@ -22,7 +22,7 @@ const Tab2 = ({
   return (
     <div className="body-container show-tab">
       <div className="main-container">
-        <main>
+        <main className="library">
           <Heading text="Library" />
           <div className="section-container">
             <AnimeSection

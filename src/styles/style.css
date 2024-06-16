@@ -309,6 +309,11 @@ main section .scrollers {
   gap: 10px;
   z-index: 30;
 }
+main.home,
+main.library,
+main.search {
+  margin-bottom: 110px;
+}
 
 main.search {
   display: flex;

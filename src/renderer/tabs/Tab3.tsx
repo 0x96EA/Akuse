@@ -5,8 +5,7 @@ import {
   faFilter,
   faHeading,
   faLeaf,
-  faMasksTheater,
-  faTrash
+  faMasksTheater
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
@@ -19,8 +18,8 @@ import { animeDataToListAnimeData } from '../../modules/utils';
 import { ListAnimeData } from '../../types/anilistAPITypes';
 import AnimeEntry from '../components/AnimeEntry';
 import Heading from '../components/Heading';
-import { useUIContext } from '../contexts/ui';
 import { useStorageContext } from '../contexts/storage';
+import { useUIContext } from '../contexts/ui';
 
 const Tab3 = () => {
   const { accessToken } = useStorageContext();
@@ -114,7 +113,7 @@ const Tab3 = () => {
   };
 
   return (
-    <div className="body-container  show-tab">
+    <div className="body-container show-tab">
       <div className="main-container">
         <Heading text="Search" />
         <main className="search">

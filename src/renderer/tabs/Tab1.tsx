@@ -22,9 +22,9 @@ const Tab1 = ({
   const { logged } = useStorageContext();
 
   return (
-    <div className="body-container  show-tab">
+    <div className="body-container show-tab">
       <div className="main-container">
-        <main>
+        <main className="home">
           {logged ? (
             userInfo?.name ? (
               <Heading text={`Welcome back, ${userInfo?.name}`} />
