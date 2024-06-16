@@ -41,6 +41,7 @@
       "error",
       { "allowShortCircuit": true, "allowTernary": true }
     ],
+    "no-nested-ternary": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["off", { "extensions": [".jsx", ".tsx"] }],
     "react/function-component-definition": "off", // TODO Change to your preference
