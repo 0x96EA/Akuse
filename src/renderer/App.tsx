@@ -1,7 +1,7 @@
-import '../styles/components.css';
-import '../styles/animations.css';
-import '../styles/style.css';
 import 'react-loading-skeleton/dist/skeleton.css';
+import '../styles/animations.css';
+import '../styles/components.css';
+import '../styles/style.css';
 
 import { useCallback, useEffect, useState } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
@@ -24,9 +24,9 @@ import Tab2 from './tabs/Tab2';
 import Tab3 from './tabs/Tab3';
 import Tab4 from './tabs/Tab4';
 
-import AutoUpdateModal from './components/modals/AutoUpdateModal';
-import WindowControls from './WindowControls';
 import { OS } from '../modules/os';
+import WindowControls from './WindowControls';
+import AutoUpdateModal from './components/modals/AutoUpdateModal';
 import { useStorageContext } from './contexts/storage';
 import { useUIContext } from './contexts/ui';
 
@@ -61,18 +61,18 @@ export default function App() {
   const [planningListAnime, setPlanningListAnimeListAnime] = useState<
     ListAnimeData[] | undefined
   >(undefined);
-  // const [completedListAnime, setCompletedListAnimeListAnime] = useState<
-  //   ListAnimeData[] | undefined
-  // >(undefined);
-  // const [droppedListAnime, setDroppedListAnimeListAnime] = useState<
-  //   ListAnimeData[] | undefined
-  // >(undefined);
-  // const [pausedListAnime, setPausedListAnimeListAnime] = useState<
-  //   ListAnimeData[] | undefined
-  // >(undefined);
-  // const [RepeatingListAnime, setRepeatingListAnimeListAnime] = useState<
-  //   ListAnimeData[] | undefined
-  // >(undefined);
+  const [completedListAnime, setCompletedListAnimeListAnime] = useState<
+    ListAnimeData[] | undefined
+  >(undefined);
+  const [droppedListAnime, setDroppedListAnimeListAnime] = useState<
+    ListAnimeData[] | undefined
+  >(undefined);
+  const [pausedListAnime, setPausedListAnimeListAnime] = useState<
+    ListAnimeData[] | undefined
+  >(undefined);
+  const [repeatingListAnime, setRepeatingListAnimeListAnime] = useState<
+    ListAnimeData[] | undefined
+  >(undefined);
 
   const style = getComputedStyle(document.body);
 
@@ -107,7 +107,7 @@ export default function App() {
         console.log(`Tab1 error: ${error}`);
       }
     },
-    [accessToken, animeLoaded]
+    [accessToken, animeLoaded, setViewerId]
   );
 
   const fetchTab2AnimeData = useCallback(async () => {
@@ -116,14 +116,18 @@ export default function App() {
         setPlanningListAnimeListAnime(
           await getViewerList(accessToken, viewerId, 'PLANNING')
         );
-        // setCompletedListAnimeListAnime(
-        //   await getViewerList(viewerId, 'COMPLETED'),
-        // );
-        // setDroppedListAnimeListAnime(await getViewerList(viewerId, 'DROPPED'));
-        // setPausedListAnimeListAnime(await getViewerList(viewerId, 'PAUSED'));
-        // setRepeatingListAnimeListAnime(
-        //   await getViewerList(viewerId, 'REPEATING'),
-        // );
+        setCompletedListAnimeListAnime(
+          await getViewerList(accessToken, viewerId, 'COMPLETED')
+        );
+        setDroppedListAnimeListAnime(
+          await getViewerList(accessToken, viewerId, 'DROPPED')
+        );
+        setPausedListAnimeListAnime(
+          await getViewerList(accessToken, viewerId, 'PAUSED')
+        );
+        setRepeatingListAnimeListAnime(
+          await getViewerList(accessToken, viewerId, 'REPEATING')
+        );
       }
     } catch (error) {
       console.log(`Tab2 error: ${error}`);
@@ -134,13 +138,13 @@ export default function App() {
     if (pathname === '/') {
       void fetchTab1AnimeData(logged);
     }
-  }, [logged, pathname]);
+  }, [fetchTab1AnimeData, logged, pathname]);
 
   useEffect(() => {
     if (pathname === '/tab2') {
       void fetchTab2AnimeData();
     }
-  }, [pathname]);
+  }, [fetchTab2AnimeData, pathname]);
 
   useEffect(() => {
     if (hasListUpdated) {
@@ -148,7 +152,14 @@ export default function App() {
       void fetchTab2AnimeData();
       setHasListUpdated(false);
     }
-  }, [hasListUpdated, logged, pathname]);
+  }, [
+    fetchTab1AnimeData,
+    fetchTab2AnimeData,
+    hasListUpdated,
+    logged,
+    pathname,
+    setHasListUpdated
+  ]);
 
   useEffect(() => {
     ipcRenderer.on('auto-update', () => {
@@ -195,10 +206,10 @@ export default function App() {
               <Tab2
                 currentListAnime={currentListAnime}
                 planningListAnime={planningListAnime}
-                // completedListAnime={completedListAnime}
-                // droppedListAnime={droppedListAnime}
-                // pausedListAnime={pausedListAnime}
-                // repeatingListAnime={RepeatingListAnime}
+                completedListAnime={completedListAnime}
+                droppedListAnime={droppedListAnime}
+                pausedListAnime={pausedListAnime}
+                repeatingListAnime={repeatingListAnime}
               />
             }
           />

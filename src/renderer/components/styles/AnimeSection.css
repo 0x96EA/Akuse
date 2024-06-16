@@ -19,3 +19,9 @@ main section .anime-list {
   padding-bottom: 10px;
   z-index: 2;
 }
+
+main section .anime-empty {
+  color: var(--font-3);
+  font-weight: var(--font-weight);
+  padding-bottom: 10px;
+}

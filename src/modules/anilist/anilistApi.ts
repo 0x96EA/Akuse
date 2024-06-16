@@ -1,5 +1,4 @@
-import { app, ipcRenderer } from 'electron';
-import { access } from 'fs';
+import { app } from 'electron';
 import {
   AnimeData,
   CurrentListAnime,
@@ -9,15 +8,14 @@ import {
 import { MediaListStatus } from '../../types/anilistGraphQLTypes';
 import { ClientData } from '../../types/types';
 import { clientData } from '../clientData';
-import { getOptions, makeRequest } from '../requests';
 import isAppImage from '../packaging/isAppImage';
-import { STORAGE } from '../storage';
+import { getOptions, makeRequest } from '../requests';
 
 const CLIENT_DATA: ClientData = clientData;
 const PAGES: number = 20;
 const METHOD: string = 'POST';
 const GRAPH_QL_URL: string = 'https://graphql.anilist.co';
-const HEADERS: Object = {
+const HEADERS: object = {
   'Content-Type': 'application/json',
   Accept: 'application/json'
 };
@@ -244,6 +242,7 @@ export const getFollowingUsers = async (accessToken: string, viewerId: any) => {
 
   const options = getOptions(query, variables);
   const respData = await makeRequest(METHOD, GRAPH_QL_URL, headers, options);
+  return respData.data;
 };
 
 /**
@@ -303,18 +302,12 @@ export const getTrendingAnime = async (
       }
       `;
 
-  if (viewerId) {
-    var headers: any = {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  } else {
-    var headers: any = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  }
+  const headers: any = {
+    Authorization:
+      accessToken && viewerId ? `Bearer ${accessToken}` : undefined,
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  };
 
   const options = getOptions(query);
   const respData = await makeRequest(METHOD, GRAPH_QL_URL, headers, options);
@@ -347,18 +340,12 @@ export const getMostPopularAnime = async (
       }
       `;
 
-  if (viewerId) {
-    var headers: any = {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  } else {
-    var headers: any = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  }
+  const headers: any = {
+    Authorization:
+      accessToken && viewerId ? `Bearer ${accessToken}` : undefined,
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  };
 
   const options = getOptions(query);
   const respData = await makeRequest(METHOD, GRAPH_QL_URL, headers, options);
@@ -390,18 +377,12 @@ export const getNextReleases = async (
       }
       `;
 
-  if (viewerId) {
-    var headers: any = {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  } else {
-    var headers: any = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  }
+  const headers: any = {
+    Authorization:
+      accessToken && viewerId ? `Bearer ${accessToken}` : undefined,
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  };
 
   const options = getOptions(query);
   const respData = await makeRequest(METHOD, GRAPH_QL_URL, headers, options);
@@ -435,18 +416,12 @@ export const searchFilteredAnime = async (
       }
       `;
 
-  if (viewerId) {
-    var headers: any = {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  } else {
-    var headers: any = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  }
+  const headers: any = {
+    Authorization:
+      accessToken && viewerId ? `Bearer ${accessToken}` : undefined,
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  };
 
   const options = getOptions(query);
   const respData = await makeRequest(METHOD, GRAPH_QL_URL, headers, options);
@@ -509,18 +484,12 @@ export const getAnimesByGenre = async (
       }
       `;
 
-  if (viewerId) {
-    var headers: any = {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  } else {
-    var headers: any = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json'
-    };
-  }
+  const headers: any = {
+    Authorization:
+      accessToken && viewerId ? `Bearer ${accessToken}` : undefined,
+    'Content-Type': 'application/json',
+    Accept: 'application/json'
+  };
 
   const options = getOptions(query);
   const respData = await makeRequest(METHOD, GRAPH_QL_URL, headers, options);

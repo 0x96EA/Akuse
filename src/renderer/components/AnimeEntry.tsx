@@ -15,13 +15,15 @@ import {
 import { ListAnimeData } from '../../types/anilistAPITypes';
 import AnimeModal from './modals/AnimeModal';
 
-const StatusDot: React.FC<{
+const StatusDot = ({
+  listAnimeData
+}: {
   listAnimeData?: ListAnimeData | undefined;
-}> = ({ listAnimeData }) => {
+}) => {
   return (
     <>
-      {(listAnimeData?.media.mediaListEntry?.status == 'CURRENT' ||
-        listAnimeData?.media.mediaListEntry?.status == 'REPEATING') &&
+      {(listAnimeData?.media.mediaListEntry?.status === 'CURRENT' ||
+        listAnimeData?.media.mediaListEntry?.status === 'REPEATING') &&
       listAnimeData.media.mediaListEntry.progress !==
         getAvailableEpisodes(listAnimeData.media) ? (
         <span className="up_to_date">
@@ -55,9 +57,7 @@ const StatusDot: React.FC<{
   );
 };
 
-const AnimeEntry: React.FC<{
-  listAnimeData?: ListAnimeData;
-}> = ({ listAnimeData }) => {
+const AnimeEntry = ({ listAnimeData }: { listAnimeData?: ListAnimeData }) => {
   // wether the modal is shown or not
   const [showModal, setShowModal] = useState<boolean>(false);
   // wether the modal has been opened at least once (used to fetch episodes info only once when opening it)

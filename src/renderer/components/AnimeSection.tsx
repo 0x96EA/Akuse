@@ -15,7 +15,7 @@ interface AnimeSectionProps {
   animeData?: ListAnimeData[];
 }
 
-const AnimeSection: React.FC<AnimeSectionProps> = ({ title, animeData }) => {
+const AnimeSection = ({ title, animeData }: AnimeSectionProps) => {
   const animeListWrapperRef = useRef<HTMLDivElement>(null);
   const animeListRef = useRef<HTMLDivElement>(null);
   const [enableButtons, setEnableButtons] = useState<boolean>(false);
@@ -54,35 +54,41 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ title, animeData }) => {
   return (
     <section onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <h1>{title}</h1>
-      {enableButtons && (
-        <div
-          className={`scrollers ${
-            showButtons ? 'show-opacity' : 'hide-opacity'
-          }`}
-        >
-          <ButtonCircle
-            icon={faArrowLeftLong}
-            tint="dark"
-            small
-            onClick={scrollLeft}
-          />
-          <ButtonCircle
-            icon={faArrowRightLong}
-            tint="dark"
-            small
-            onClick={scrollRight}
-          />
-        </div>
-      )}
-      <div className="anime-list-wrapper" ref={animeListWrapperRef}>
-        <div className="anime-list" ref={animeListRef}>
-          {(animeData?.length ? animeData : Array(20).fill(undefined)).map(
-            (listAnimeData, index) => (
-              <AnimeEntry key={index} listAnimeData={listAnimeData} />
-            )
+      {animeData?.length === 0 ? (
+        <p className="anime-empty">Empty</p>
+      ) : (
+        <>
+          {enableButtons && (
+            <div
+              className={`scrollers ${
+                showButtons ? 'show-opacity' : 'hide-opacity'
+              }`}
+            >
+              <ButtonCircle
+                icon={faArrowLeftLong}
+                tint="dark"
+                small
+                onClick={scrollLeft}
+              />
+              <ButtonCircle
+                icon={faArrowRightLong}
+                tint="dark"
+                small
+                onClick={scrollRight}
+              />
+            </div>
           )}
-        </div>
-      </div>
+          <div className="anime-list-wrapper" ref={animeListWrapperRef}>
+            <div className="anime-list" ref={animeListRef}>
+              {(animeData || Array(20).fill(undefined)).map(
+                (listAnimeData, index) => (
+                  <AnimeEntry key={index} listAnimeData={listAnimeData} />
+                )
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 };

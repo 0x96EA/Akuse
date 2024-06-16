@@ -12,13 +12,13 @@ interface Tab1Props {
   nextReleasesAnime?: ListAnimeData[];
 }
 
-const Tab1: React.FC<Tab1Props> = ({
+const Tab1 = ({
   userInfo,
   currentListAnime,
   trendingAnime,
   mostPopularAnime,
   nextReleasesAnime
-}) => {
+}: Tab1Props) => {
   const { logged } = useStorageContext();
 
   return (

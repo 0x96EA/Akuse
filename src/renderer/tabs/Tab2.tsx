@@ -5,9 +5,20 @@ import Heading from '../components/Heading';
 interface Tab2Props {
   currentListAnime?: ListAnimeData[];
   planningListAnime?: ListAnimeData[];
+  completedListAnime?: ListAnimeData[];
+  droppedListAnime?: ListAnimeData[];
+  pausedListAnime?: ListAnimeData[];
+  repeatingListAnime?: ListAnimeData[];
 }
 
-const Tab2: React.FC<Tab2Props> = ({ currentListAnime, planningListAnime }) => {
+const Tab2 = ({
+  currentListAnime,
+  planningListAnime,
+  completedListAnime,
+  droppedListAnime,
+  pausedListAnime,
+  repeatingListAnime
+}: Tab2Props) => {
   return (
     <div className="body-container show-tab">
       <div className="main-container">
@@ -19,6 +30,10 @@ const Tab2: React.FC<Tab2Props> = ({ currentListAnime, planningListAnime }) => {
               animeData={currentListAnime}
             />
             <AnimeSection title="Your List" animeData={planningListAnime} />
+            <AnimeSection title="Completed" animeData={completedListAnime} />
+            <AnimeSection title="Dropped" animeData={droppedListAnime} />
+            <AnimeSection title="Paused" animeData={pausedListAnime} />
+            <AnimeSection title="Repeating" animeData={repeatingListAnime} />
           </div>
         </main>
       </div>
