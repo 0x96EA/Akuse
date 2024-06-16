@@ -36,6 +36,7 @@
     "import/extensions": "off",
     "no-console": "off",
     "no-void": ["error", { "allowAsStatement": true }],
+    "vars-on-top": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["off", { "extensions": [".jsx", ".tsx"] }],
     "react/function-component-definition": "off", // TODO Change to your preference
@@ -43,6 +44,7 @@
     "react/no-array-index-key": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "react/prop-types": "off", // TODO Change React.FC<TYPE_HERE> calls to use (props: TYPE_HERE) => {} instead to fix
+    "jsx-a11y/media-has-caption": "off",
     "jsx-a11y/click-events-have-key-events": "warn",
     "jsx-a11y/no-static-element-interactions": "warn"
   }
