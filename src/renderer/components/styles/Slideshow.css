@@ -115,6 +115,10 @@
 .dot-container {
   text-align: center;
   margin-top: 20px;
+  
+  position: sticky;
+  left: 0;
+  right: 0;
 }
 
 .dot {
