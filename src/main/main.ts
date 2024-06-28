@@ -14,8 +14,6 @@ import { resolveHtmlPath } from './util';
 import { OS } from '../modules/os';
 import { STORE } from '../modules/storeVariables';
 
-const DiscordRPC = require('../../release/app/node_modules/discord-rpc');
-
 app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
 
 const authUrl = `https://anilist.co/api/v2/oauth/authorize?client_id=${clientData.clientId}&redirect_uri=${isAppImage || !app.isPackaged ? 'https://anilist.co/api/v2/oauth/pin' : clientData.redirectUri}&response_type=code`;
@@ -313,41 +311,4 @@ ipcMain.handle('setStoreValue', (_, key, value) => {
   return STORE.set(key, value);
 });
 
-/* DISCORD RPC */
-
-const clientId = '1212475013408628818';
-
-const RPC = new DiscordRPC.Client({ transport: 'ipc' });
-DiscordRPC.register(clientId);
-
 // const startTimestamp = new Date();
-
-async function setActivity() {
-  if (!RPC || !mainWindow) {
-    return;
-  }
-
-  RPC.setActivity({
-    details: 'Watch anime without ads.',
-    startTimestamp: Date.now(),
-    largeImageKey: 'icon',
-    largeImageText: 'Akuse',
-    instance: false,
-    buttons: [
-      {
-        label: 'Download app',
-        url: 'https://github.com/akuse-app/akuse/releases/latest'
-      }
-    ]
-  });
-}
-
-RPC.on('ready', () => {
-  setActivity();
-
-  setInterval(() => {
-    setActivity();
-  }, 15 * 1000);
-});
-
-RPC.login({ clientId }).catch(console.error);
