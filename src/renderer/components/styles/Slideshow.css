@@ -1,9 +1,13 @@
 .slideshow-container {
   position: relative;
-  margin: auto;
+  margin: auto auto 20px;
+  padding-bottom: 20px;
+
   width: calc(100% + 25px);
   height: 491px; /* for skeleton */
-  /* border-radius: var(--border-radius); */
+  
+  overflow-x: scroll;
+  overflow-y: clip;
 }
 
 .slideshow-wrapper {
