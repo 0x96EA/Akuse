@@ -53,7 +53,7 @@
     "react/prop-types": "off", // TODO Change React.FC<TYPE_HERE> calls to use (props: TYPE_HERE) => {} instead to fix
     "jsx-a11y/media-has-caption": "off",
     "jsx-a11y/label-has-associated-control": "off",
-    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/no-static-element-interactions": "warn"
   }
 }
