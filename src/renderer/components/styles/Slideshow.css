@@ -1,13 +1,11 @@
 .slideshow-container {
   position: relative;
+  /* margin:auto; */
   margin: auto auto 20px;
   padding-bottom: 20px;
 
   width: calc(100% + 25px);
   height: 491px; /* for skeleton */
-  
-  overflow-x: scroll;
-  overflow-y: clip;
 }
 
 .slideshow-wrapper {
@@ -115,10 +113,6 @@
 .dot-container {
   text-align: center;
   margin-top: 20px;
-  
-  position: sticky;
-  left: 0;
-  right: 0;
 }
 
 .dot {

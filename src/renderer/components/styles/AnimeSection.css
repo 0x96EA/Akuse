@@ -1,6 +1,8 @@
 main section .anime-list-wrapper {
+  padding: 50px;
+  margin: -50px;
   position: relative;
-  overflow-x: scroll;
+  overflow-x: hidden;
   overflow-y: visible;
   scroll-snap-type: x mandatory;
   /* disable if drag n scroll is enabled */

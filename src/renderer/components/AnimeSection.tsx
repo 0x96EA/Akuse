@@ -59,11 +59,7 @@ const AnimeSection = ({ title, animeData }: AnimeSectionProps) => {
       ) : (
         <>
           {enableButtons && (
-            <div
-              className={`scrollers ${
-                showButtons ? 'show-opacity' : 'hide-opacity'
-              }`}
-            >
+            <div className="scrollers show-opacity">
               <ButtonCircle
                 icon={faArrowLeftLong}
                 tint="dark"
