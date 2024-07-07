@@ -315,16 +315,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
           const status = listAnimeData.media.mediaListEntry?.status;
 
           switch (status) {
-            case 'CURRENT': {
+            case 'CURRENT':
               await updateAnimeProgress(
                 accessToken,
                 listAnimeData.media.id!,
                 episodeNumber
               );
               break;
-            }
             case 'REPEATING':
-            case 'COMPLETED': {
+            case 'COMPLETED':
               await updateAnimeFromList(
                 accessToken,
                 listAnimeData.media.id,
@@ -332,8 +331,8 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 undefined,
                 episodeNumber
               );
-            }
-            default: {
+              break;
+            default:
               await updateAnimeFromList(
                 accessToken,
                 listAnimeData.media.id,
@@ -341,7 +340,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
                 undefined,
                 episodeNumber
               );
-            }
           }
 
           setProgressUpdated(true);
@@ -421,6 +419,10 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
     reloadAtPreviousTime?: boolean
   ): Promise<boolean> => {
     onChangeLoading(true);
+
+    if (!videoRef.current?.paused) {
+      pauseVideo();
+    }
 
     const episodeToPlay = episode || episodeNumber;
 
@@ -513,6 +515,17 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
       }
     }
   };
+
+  useEffect(() => {
+    navigator.mediaSession.setActionHandler('previoustrack', async () => {
+      canNextEpisode(episodeNumber) && (await changeEpisode(episodeNumber - 1));
+    });
+
+    navigator.mediaSession.setActionHandler('nexttrack', async () => {
+      canPreviousEpisode(episodeNumber) &&
+        (await changeEpisode(episodeNumber + 1));
+    });
+  }, [canNextEpisode, changeEpisode, episodeNumber]);
 
   return ReactDOM.createPortal(
     show && (
