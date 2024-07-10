@@ -34,42 +34,75 @@ export const useStorage = (): StorageContextType => {
   const loadStorage = useCallback(async () => {
     const store = await STORAGE.getStore();
     if (store.logged !== logged) {
+      if (store.logged === undefined) {
+        await STORAGE.set('logged', STORE_SCHEMA.logged.default);
+      }
       setLogged(store.logged ?? STORE_SCHEMA.logged.default);
     }
 
     if (store.access_token !== accessToken) {
+      if (store.access_token === undefined) {
+        await STORAGE.set('access_token', STORE_SCHEMA.access_token.default);
+      }
       setAccessToken(store.access_token ?? STORE_SCHEMA.access_token.default);
     }
 
     if (store.update_progress !== updateProgress) {
+      if (store.update_progress === undefined) {
+        await STORAGE.set(
+          'update_progress',
+          STORE_SCHEMA.update_progress.default
+        );
+      }
       setUpdateProgress(
         store.update_progress ?? STORE_SCHEMA.update_progress.default
       );
     }
 
     if (store.dubbed !== watchDubbed) {
+      if (store.dubbed === undefined) {
+        await STORAGE.set('dubbed', STORE_SCHEMA.dubbed.default);
+      }
       setWatchDubbed(store.dubbed ?? STORE_SCHEMA.dubbed.default);
     }
 
     if (store.source_flag !== selectedLanguage) {
+      if (store.source_flag === undefined) {
+        await STORAGE.set('source_flag', STORE_SCHEMA.source_flag.default);
+      }
       setSelectedLanguage(
         store.source_flag ?? STORE_SCHEMA.source_flag.default
       );
     }
 
     if (store.intro_skip_time !== skipTime) {
+      if (store.intro_skip_time === undefined) {
+        await STORAGE.set(
+          'intro_skip_time',
+          STORE_SCHEMA.intro_skip_time.default
+        );
+      }
       setSkipTime(
         store.intro_skip_time ?? STORE_SCHEMA.intro_skip_time.default
       );
     }
 
     if (store.show_duration !== showDuration) {
+      if (store.show_duration === undefined) {
+        await STORAGE.set('show_duration', STORE_SCHEMA.show_duration.default);
+      }
       setShowDuration(
         store.show_duration ?? STORE_SCHEMA.show_duration.default
       );
     }
 
     if (store.trailer_volume_on !== trailerVolumeOn) {
+      if (store.trailer_volume_on === undefined) {
+        await STORAGE.set(
+          'trailer_volume_on',
+          STORE_SCHEMA.trailer_volume_on.default
+        );
+      }
       setTrailerVolumeOn(
         store.trailer_volume_on ?? STORE_SCHEMA.trailer_volume_on.default
       );
