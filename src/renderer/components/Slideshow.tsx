@@ -62,10 +62,12 @@ const Slide: React.FC<SlideProps> = ({ listAnimeData, index, isVisible }) => {
     }
 
     setIsFirstActivation(false);
-  }, [isVisible]);
+  }, [isFirstActivation, isVisible]);
 
   const fetchEpisodesInfo = async () => {
+    // eslint-disable-next-line promise/catch-or-return
     axios.get(`${EPISODES_INFO_URL}${listAnimeData.media.id}`).then(data => {
+      // eslint-disable-next-line promise/always-return
       if (data.data && data.data.episodes) setEpisodesInfo(data.data.episodes);
     });
   };
@@ -75,22 +77,20 @@ const Slide: React.FC<SlideProps> = ({ listAnimeData, index, isVisible }) => {
     setLoading(true);
 
     await fetchEpisodesInfo();
-    getUniversalEpisodeUrl(listAnimeData, 1).then(data => {
-      if (!data) {
-        toast(`Source not found.`, {
-          style: {
-            color: style.getPropertyValue('--font-2'),
-            backgroundColor: style.getPropertyValue('--color-3')
-          },
-          icon: '❌'
-        });
-        setLoading(false);
-
-        return;
-      }
-      setPlayerIVideo(data);
+    const data = await getUniversalEpisodeUrl(listAnimeData, 1);
+    if (!data) {
+      toast(`Source not found.`, {
+        style: {
+          color: style.getPropertyValue('--font-2'),
+          backgroundColor: style.getPropertyValue('--color-3')
+        },
+        icon: '❌'
+      });
       setLoading(false);
-    });
+      return;
+    }
+    setPlayerIVideo(data);
+    setLoading(false);
   };
 
   const handleChangeLoading = (value: boolean) => {
@@ -189,21 +189,6 @@ const Slideshow: React.FC<SlideshowProps> = ({ listAnimeData }) => {
 
   const [animeData, setAnimeData] = useState<ListAnimeData[] | undefined>();
 
-  useEffect(() => {
-    setAnimeData(
-      listAnimeData
-        ?.filter(animeData => animeData?.media.bannerImage)
-        ?.filter(animeData => !animeData.media.mediaListEntry)
-        .slice(0, 5)
-    );
-  }, [listAnimeData]);
-
-  useEffect(() => {
-    const intervalId = setInterval(goToNext, 12500);
-
-    return () => clearInterval(intervalId);
-  }, [animeData, currentIndex]);
-
   const goToPrevious = () => {
     if (!animeData) return;
     const newIndex =
@@ -217,6 +202,23 @@ const Slideshow: React.FC<SlideshowProps> = ({ listAnimeData }) => {
       currentIndex === animeData.length - 1 ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+
+  useEffect(() => {
+    setAnimeData(
+      listAnimeData
+        ?.filter(data => data?.media.bannerImage)
+        ?.filter(data => !data.media.mediaListEntry)
+        .slice(0, 5)
+    );
+  }, [listAnimeData]);
+
+  useEffect(() => {
+    const intervalId = setInterval(goToNext, 12500);
+
+    return () => clearInterval(intervalId);
+  }, [animeData, currentIndex]);
+
+
 
   const goToIndex = (index: number) => {
     setCurrentIndex(index);
@@ -232,10 +234,10 @@ const Slideshow: React.FC<SlideshowProps> = ({ listAnimeData }) => {
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
             {animeData &&
-              animeData.map((listAnimeData, index) => (
+              animeData.map((data, index) => (
                 <Slide
                   key={index}
-                  listAnimeData={listAnimeData}
+                  listAnimeData={data}
                   index={index}
                   isVisible={index === currentIndex}
                 />

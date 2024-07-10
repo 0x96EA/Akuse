@@ -102,8 +102,10 @@ const AnimeModal: React.FC<AnimeModalProps> = ({
   };
 
   const fetchEpisodesInfo = useCallback(async () => {
+    // eslint-disable-next-line promise/catch-or-return
     axios.get(`${EPISODES_INFO_URL}${listAnimeData.media.id}`).then(data => {
       if (data.data && data.data.episodes) setEpisodesInfo(data.data.episodes);
+      // eslint-disable-next-line promise/always-return
       data.data.images &&
         setAlternativeBanner(
           getUrlByCoverType(data.data.images, 'fanart') ?? undefined
@@ -146,25 +148,24 @@ const AnimeModal: React.FC<AnimeModalProps> = ({
     setLoading(true);
     setAnimeEpisodeNumber(episode);
 
-    getUniversalEpisodeUrl(listAnimeData, episode).then(data => {
-      if (!data) {
-        toast(`Source not found.`, {
-          style: {
-            color: style.getPropertyValue('--font-2'),
-            backgroundColor: style.getPropertyValue('--color-3')
-          },
-          icon: '❌'
-        });
-        setLoading(false);
-
-        return;
-      }
-      setPlayerIVideo(data);
-    });
+    const data = await getUniversalEpisodeUrl(listAnimeData, episode);
+    if (!data) {
+      toast(`Source not found.`, {
+        style: {
+          color: style.getPropertyValue('--font-2'),
+          backgroundColor: style.getPropertyValue('--color-3')
+        },
+        icon: '❌'
+      });
+      setLoading(false);
+      return;
+    }
+    setPlayerIVideo(data);
+    setLoading(false);
   };
 
-  const handleLocalProgressChange = (localProgress: number) => {
-    setLocalProgress(localProgress);
+  const handleLocalProgressChange = (value: number) => {
+    setLocalProgress(value);
   };
 
   const handleChangeLoading = (value: boolean) => {
@@ -199,7 +200,7 @@ const AnimeModal: React.FC<AnimeModalProps> = ({
     } catch (error) {
       console.log(error);
     }
-  }, [canRePlayTrailer, handleTrailerVolumeOn, show, trailerRef.current]);
+  }, [canRePlayTrailer, handleTrailerVolumeOn, show]);
 
   return ReactDOM.createPortal(
     <>
