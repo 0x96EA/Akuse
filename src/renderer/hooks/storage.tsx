@@ -10,49 +10,69 @@ import {
 export const useStorage = (): StorageContextType => {
   const [logged, setLogged] = useState<boolean>(STORE_SCHEMA.logged.default);
   const [accessToken, setAccessToken] = useState<string>(
-    STORE_SCHEMA.access_token
+    STORE_SCHEMA.access_token.default
   );
   const [updateProgress, setUpdateProgress] = useState<boolean>(
     STORE_SCHEMA.update_progress
   );
-  const [watchDubbed, setWatchDubbed] = useState<boolean>(STORE_SCHEMA.dubbed);
+  const [watchDubbed, setWatchDubbed] = useState<boolean>(
+    STORE_SCHEMA.dubbed.default
+  );
   const [selectedLanguage, setSelectedLanguage] = useState<LanguageOptions>(
-    STORE_SCHEMA.source_flag
+    STORE_SCHEMA.source_flag.default
   );
   const [skipTime, setSkipTime] = useState<number>(
-    STORE_SCHEMA.intro_skip_time
+    STORE_SCHEMA.intro_skip_time.default
   );
   const [showDuration, setShowDuration] = useState<boolean>(
-    STORE_SCHEMA.show_duration
+    STORE_SCHEMA.show_duration.default
   );
   const [trailerVolumeOn, setTrailerVolumeOn] = useState<boolean>(
-    STORE_SCHEMA.trailer_volume_on
+    STORE_SCHEMA.trailer_volume_on.default
   );
 
   const loadStorage = useCallback(async () => {
     const store = await STORAGE.getStore();
-    if (store.logged !== logged) setLogged(store.logged);
+    if (store.logged !== logged) {
+      setLogged(store.logged ?? STORE_SCHEMA.logged.default);
+    }
 
-    if (store.access_token !== accessToken) setAccessToken(store.access_token);
+    if (store.access_token !== accessToken) {
+      setAccessToken(store.access_token ?? STORE_SCHEMA.access_token.default);
+    }
 
     if (store.update_progress !== updateProgress) {
-      setUpdateProgress(store.update_progress);
+      setUpdateProgress(
+        store.update_progress ?? STORE_SCHEMA.update_progress.default
+      );
     }
 
-    if (store.dubbed !== watchDubbed) setWatchDubbed(store.dubbed);
+    if (store.dubbed !== watchDubbed) {
+      setWatchDubbed(store.dubbed ?? STORE_SCHEMA.dubbed.default);
+    }
 
     if (store.source_flag !== selectedLanguage) {
-      setSelectedLanguage(store.source_flag);
+      setSelectedLanguage(
+        store.source_flag ?? STORE_SCHEMA.source_flag.default
+      );
     }
 
-    if (store.intro_skip_time !== skipTime) setSkipTime(store.intro_skip_time);
+    if (store.intro_skip_time !== skipTime) {
+      setSkipTime(
+        store.intro_skip_time ?? STORE_SCHEMA.intro_skip_time.default
+      );
+    }
 
     if (store.show_duration !== showDuration) {
-      setShowDuration(store.show_duration);
+      setShowDuration(
+        store.show_duration ?? STORE_SCHEMA.show_duration.default
+      );
     }
 
     if (store.trailer_volume_on !== trailerVolumeOn) {
-      setTrailerVolumeOn(store.trailer_volume_on);
+      setTrailerVolumeOn(
+        store.trailer_volume_on ?? STORE_SCHEMA.trailer_volume_on.default
+      );
     }
 
     console.log('store - loaded');
